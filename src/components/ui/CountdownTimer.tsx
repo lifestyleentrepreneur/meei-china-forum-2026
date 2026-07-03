@@ -15,23 +15,41 @@ function getTimeLeft() {
   };
 }
 
-function Bubble({ value, label }: { value: number; label: string }) {
+type Variant = "dark" | "light";
+
+function Bubble({
+  value,
+  label,
+  variant,
+}: {
+  value: number;
+  label: string;
+  variant: Variant;
+}) {
+  const light = variant === "light";
   return (
     <div className="flex flex-col items-center gap-1.5">
       <div
-        className="flex h-16 w-16 items-center justify-center rounded-full border border-white/20 sm:h-[72px] sm:w-[72px]"
-        style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}
+        className="flex h-16 w-16 items-center justify-center rounded-full border sm:h-[72px] sm:w-[72px]"
+        style={{
+          borderColor: light ? "rgba(0,0,0,0.14)" : "rgba(255,255,255,0.20)",
+          background: light ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.08)",
+          backdropFilter: "blur(12px)",
+        }}
       >
         <span
-          className="font-heading font-bold leading-none text-white tabular-nums"
-          style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}
+          className="font-heading font-bold leading-none tabular-nums"
+          style={{
+            fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
+            color: light ? "#111111" : "#ffffff",
+          }}
         >
           {String(value).padStart(2, "0")}
         </span>
       </div>
       <span
         className="font-body text-[9px] font-semibold uppercase tracking-[0.2em]"
-        style={{ color: "rgba(255,255,255,0.45)" }}
+        style={{ color: light ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.45)" }}
       >
         {label}
       </span>
@@ -39,7 +57,11 @@ function Bubble({ value, label }: { value: number; label: string }) {
   );
 }
 
-export default function CountdownTimer() {
+export default function CountdownTimer({
+  variant = "dark",
+}: {
+  variant?: Variant;
+}) {
   const [time, setTime] = useState(getTimeLeft);
 
   useEffect(() => {
@@ -49,10 +71,10 @@ export default function CountdownTimer() {
 
   return (
     <div className="flex items-end gap-3 sm:gap-4" aria-label="Countdown to summit opening">
-      <Bubble value={time.days}    label="Days"    />
-      <Bubble value={time.hours}   label="Hours"   />
-      <Bubble value={time.minutes} label="Min"     />
-      <Bubble value={time.seconds} label="Sec"     />
+      <Bubble value={time.days}    label="Days"  variant={variant} />
+      <Bubble value={time.hours}   label="Hours" variant={variant} />
+      <Bubble value={time.minutes} label="Min"   variant={variant} />
+      <Bubble value={time.seconds} label="Sec"   variant={variant} />
     </div>
   );
 }

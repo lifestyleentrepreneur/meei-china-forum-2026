@@ -67,7 +67,7 @@ export default function Header() {
             className="absolute left-1/2 hidden -translate-x-1/2 md:block"
           >
             <ul
-              className="flex items-center gap-0.5 rounded-full border border-white/20 bg-white/10 px-1.5 py-1 shadow-xl backdrop-blur-lg"
+              className="flex items-center gap-0.5 rounded-full border border-white/15 bg-black/30 px-1.5 py-1 shadow-xl backdrop-blur-lg"
               role="list"
             >
               {NAV_ITEMS.map((item) => (

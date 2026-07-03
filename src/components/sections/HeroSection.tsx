@@ -27,37 +27,19 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      {/* ── Dark scrim so the banner text stays readable over the photo ── */}
+      {/* ── Light veil: keeps the photo bright while lifting black text ── */}
       <div
         className="absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(2,7,5,0.62) 0%, rgba(2,7,5,0.5) 40%, rgba(1,4,2,0.86) 100%)",
-        }}
-      />
-
-      {/* ── Center radial to lift the headline off the bright sky ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          background:
-            "radial-gradient(ellipse 65% 55% at center, rgba(1,4,2,0.45) 0%, transparent 62%, rgba(1,4,2,0.5) 100%)",
+            "linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.42) 45%, rgba(255,255,255,0.6) 100%)",
         }}
       />
 
       {/* ── All content: centered, ~2/3 width ── */}
       <div className="relative z-10 flex min-h-screen items-center justify-center">
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-6 py-28 text-center lg:w-2/3">
-
-            {/* Organizer eyebrow */}
-            <p
-              className="mb-4 font-semibold uppercase tracking-[0.34em] text-white/70"
-              style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(0.7rem, 1vw, 0.85rem)" }}
-            >
-              MEEI Program Presents
-            </p>
 
             {/* Banner title */}
             <h1
@@ -69,11 +51,11 @@ export default function HeroSection() {
                 style={{ fontSize: "clamp(3.2rem, 9vw, 8rem)" }}
               >
                 <span style={{ color: "#AE301E" }}>China</span>
-                <span className="text-white">&nbsp;–&nbsp;</span>
-                <span style={{ color: "#32591C" }}>Africa</span>
+                <span className="text-black">&nbsp;–&nbsp;</span>
+                <span style={{ color: "#26461A" }}>Africa</span>
               </span>
               <span
-                className="block font-semibold tracking-[0.06em] text-white"
+                className="block font-semibold tracking-[0.06em] text-black"
                 style={{ fontSize: "clamp(1.5rem, 3.6vw, 3.2rem)" }}
               >
                 Business &amp; Investment Summit
@@ -144,12 +126,12 @@ export default function HeroSection() {
                 className="mb-2 font-semibold uppercase tracking-[0.12em]"
                 style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.25rem, 2.6vw, 2rem)" }}
               >
-                <span style={{ color: "#D2A74F" }}>Theme:&nbsp;</span>
-                <span className="text-white">{siteConfig.theme}</span>
+                <span style={{ color: "#26461A" }}>Theme:&nbsp;</span>
+                <span className="text-black">{siteConfig.theme}</span>
               </p>
               <p
-                className="font-body leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(1.05rem, 1.7vw, 1.35rem)" }}
+                className="font-body leading-relaxed text-black/80"
+                style={{ fontSize: "clamp(1.05rem, 1.7vw, 1.35rem)" }}
               >
                 {siteConfig.themeDescription}
               </p>
@@ -169,17 +151,14 @@ export default function HeroSection() {
                 Join the Summit
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
-              <p
-                className="font-body text-xs"
-                style={{ color: "#D2A74F" }}
-              >
+              <p className="font-body text-xs font-medium text-black/70">
                 Registration closes {siteConfig.registrationCloses}.
               </p>
             </div>
 
             {/* ── Countdown ── */}
             <div className="mt-10">
-              <CountdownTimer />
+              <CountdownTimer variant="light" />
             </div>
 
         </div>
