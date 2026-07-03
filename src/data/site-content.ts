@@ -23,9 +23,9 @@ export const siteConfig = {
   theme: "From Dependency to Prosperity",
   themeDescription:
     "Building Sustainable Africa–China Trade, Investment and Industrial Partnerships",
-  dates: "17–20 October 2026",
+  dates: "17–18 October 2026",
   dateStart: "2026-10-17",
-  dateEnd: "2026-10-20",
+  dateEnd: "2026-10-18",
   registrationCloses: "31 August 2026",
   venue: "Vienna International Hotel",
   venueAddress: "No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China",
@@ -38,7 +38,7 @@ export const siteConfig = {
   metaTitle:
     "China–Africa Business & Investment Summit 2026 | MEEI Program",
   metaDescription:
-    "Join the China–Africa Business & Investment Summit 2026 in Guangzhou, China, from 17–20 October 2026. Explore trade, investment, manufacturing, market access, business matchmaking, and sustainable industrial partnerships.",
+    "Join the China–Africa Business & Investment Summit 2026 in Guangzhou, China, on 17–18 October 2026. Explore trade, investment, manufacturing, market access, business matchmaking, and sustainable industrial partnerships.",
   canonicalUrl: "https://www.meeiconference.org",
   themeColor: "#050806",
 };
@@ -282,7 +282,7 @@ export const speakerPlaceholders: Speaker[] = [
     organization: "MEEI Program",
     country: null,
     image: "/images/speakers/farel.jpg",
-    bio: "Entrepreneur and speaker focused on connecting African and Chinese markets, Farel helps businesses navigate cross-border trade, market access, and investment to turn opportunity into lasting partnership.",
+    bio: "Entrepreneur and AI engineer building technological solutions for businesses. Farel bridges African and Chinese markets, helping companies apply technology and cross-border partnerships to enter, scale, and operate across both regions.",
     featured: true,
   },
 ];
@@ -428,7 +428,7 @@ export const faqs: FAQ[] = [
     id: "dates",
     question: "What are the summit dates?",
     answer:
-      "The summit is scheduled for 17–20 October 2026.",
+      "The summit is scheduled for 17–18 October 2026.",
   },
   {
     id: "who",
@@ -486,51 +486,50 @@ export const agendaDays: AgendaDay[] = [
     id: "day-1",
     date: "17 Oct",
     label: "Day 1",
-    theme: "Arrival & Opening",
+    theme: "Conference & Matchmaking",
     sessions: [
-      { time: "09:00", title: "Registration & Welcome", description: "Delegate check-in and networking welcome reception." },
-      { time: "14:00", title: "Opening Ceremony", description: "Official opening address and keynote session." },
-      { time: "17:00", title: "Keynote Panel", description: "Africa–China economic ties: opportunities and priorities." },
-      { time: "19:00", title: "Networking Dinner", description: "Hosted welcome dinner for all delegates." },
+      { time: "08:30", title: "Breakfast & Registration", description: "Delegate check-in with morning breakfast reception." },
+      { time: "10:00", title: "Opening Ceremony", description: "Official welcome address, hosted by MEEI Program." },
+      { time: "11:00", title: "Keynote & High-Level Panel", description: "Africa–China economic ties: opportunities and priorities." },
+      { time: "12:30", title: "Lunch & Networking", description: "Informal delegate networking over lunch." },
+      { time: "14:00", title: "Investment Showcase & Breakouts", description: "Sector deep-dives: manufacturing, agriculture, energy, logistics." },
+      { time: "16:00", title: "B2B Matchmaking, Session 1", description: "Structured one-on-one business meetings." },
+      { time: "19:00", title: "Welcome Networking Dinner", description: "Hosted evening reception for all delegates." },
     ],
   },
   {
     id: "day-2",
     date: "18 Oct",
     label: "Day 2",
-    theme: "Trade & Investment",
+    theme: "Site Visits & Closing",
     sessions: [
-      { time: "09:00", title: "Plenary: Trade Landscape", description: "Overview of Africa–China trade flows and emerging sectors." },
-      { time: "11:00", title: "Investment Showcase", description: "Country and sector-level investment opportunity presentations." },
-      { time: "14:00", title: "Breakout Sessions", description: "Sector-specific deep dives: manufacturing, agri, energy, logistics." },
-      { time: "17:00", title: "B2B Matchmaking, Session 1", description: "Structured one-on-one business meetings." },
-    ],
-  },
-  {
-    id: "day-3",
-    date: "19 Oct",
-    label: "Day 3",
-    theme: "Industry & Matchmaking",
-    sessions: [
-      { time: "09:00", title: "Factory & Industrial Visits", description: "Organized visits to selected Guangzhou industrial facilities." },
-      { time: "14:00", title: "Manufacturing Partnerships Forum", description: "Panel and Q&A on production and supply-chain collaboration." },
-      { time: "16:00", title: "B2B Matchmaking, Session 2", description: "Continued structured one-on-one meetings." },
-      { time: "19:00", title: "Cultural Exchange Evening", description: "Informal networking and cultural programme." },
-    ],
-  },
-  {
-    id: "day-4",
-    date: "20 Oct",
-    label: "Day 4",
-    theme: "Policy & Closing",
-    sessions: [
-      { time: "09:00", title: "Government & Policy Dialogue", description: "Roundtable with government representatives on trade facilitation." },
-      { time: "11:00", title: "Market Access Strategies Panel", description: "Practical pathways for entering African and Chinese markets." },
-      { time: "14:00", title: "Summit Declarations", description: "Presentation of summit outcomes and partnership commitments." },
-      { time: "15:30", title: "Closing Ceremony & Reception", description: "Formal closing address and farewell networking reception." },
+      { time: "08:30", title: "Factory & Industrial Visits", description: "Organized visits to selected Guangzhou industrial facilities." },
+      { time: "12:30", title: "Lunch & Networking", description: "Informal delegate networking over lunch." },
+      { time: "14:00", title: "Policy Dialogue & Market Access Panel", description: "Roundtable with government representatives on trade facilitation." },
+      { time: "15:30", title: "B2B Matchmaking, Session 2", description: "Continued structured one-on-one meetings." },
+      { time: "16:30", title: "Summit Declarations & Signing", description: "Outcome presentation and formal MOU signing ceremony." },
+      { time: "17:15", title: "Closing Ceremony & Reception", description: "Formal closing address and farewell networking reception." },
     ],
   },
 ];
+
+export const pricing = {
+  amount: "$1,100",
+  currency: "USD",
+  note: "per delegate",
+  includes: [
+    "Visa facilitation — we handle your visa procedure",
+    "3 nights' hotel accommodation",
+    "Airport transfers (airport ↔ hotel, both ways)",
+    "Full conference attendance",
+    "Guided factory tour",
+  ],
+  excludes: [
+    "International flight ticket",
+    "Daily expenses and meals outside the programme",
+    "Optional extra activities",
+  ],
+};
 
 export const mediaConfig: MediaConfig = {
   heroImage: null,

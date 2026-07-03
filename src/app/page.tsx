@@ -6,6 +6,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import PastEventsGallery from "@/components/sections/PastEventsGallery";
 import SpeakersSection from "@/components/sections/SpeakersSection";
 import WhoShouldAttendSection from "@/components/sections/WhoShouldAttendSection";
+import PricingSection from "@/components/sections/PricingSection";
 import ProgrammeSection from "@/components/sections/ProgrammeSection";
 import CtaSection from "@/components/sections/CtaSection";
 import PartnersSection from "@/components/sections/PartnersSection";
@@ -38,6 +39,9 @@ export default function HomePage() {
 
         {/* L, Who should attend */}
         <WhoShouldAttendSection />
+
+        {/* M, Pricing */}
+        <PricingSection />
 
         {/* N, Partners */}
         <PartnersSection />

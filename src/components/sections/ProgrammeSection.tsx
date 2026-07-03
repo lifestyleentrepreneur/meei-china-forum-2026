@@ -48,7 +48,7 @@ export default function ProgrammeSection() {
               <p
                 className="max-w-[640px] font-body leading-[1.55] text-[#9DA89F] lg:text-[17px]"
               >
-                Four days of strategic conversations, business matchmaking,
+                Two days of strategic conversations, business matchmaking,
                 market insight, and relationship-building between African and
                 Chinese business leaders.
               </p>
@@ -65,7 +65,7 @@ export default function ProgrammeSection() {
             >
               {/* Day tab row */}
               <div
-                className="grid grid-cols-4 border-b"
+                className="grid grid-cols-2 border-b"
                 style={{ borderColor: "rgba(255,255,255,0.08)" }}
                 role="tablist"
                 aria-label="Summit days"

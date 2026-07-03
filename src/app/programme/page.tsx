@@ -29,7 +29,7 @@ export default function ProgrammePage() {
               <span style={{ color: "var(--green-bright)" }}>Programme</span>
             </h1>
             <p className="mb-6 max-w-[640px] font-body leading-[1.55] text-[#9DA89F] lg:text-[17px]">
-              Four days of strategic conversations, business matchmaking, market
+              Two days of strategic conversations, business matchmaking, market
               insight, and relationship-building between African and Chinese
               business leaders.
             </p>

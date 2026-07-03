@@ -85,17 +85,6 @@ export default function WhoShouldAttendSection() {
 
         {/* Heading block */}
         <div className="mb-8 flex flex-col items-center text-center lg:mb-16">
-          <p
-            className="mb-3 font-body text-[11px] font-semibold uppercase tracking-[0.22em]"
-            style={{ color: DEEP_GREEN }}
-          >
-            Delegate Profile
-          </p>
-          <div
-            className="mb-7 h-[2px] w-10 rounded-full"
-            style={{ background: DEEP_GREEN }}
-            aria-hidden="true"
-          />
           <h2
             id="who-attends-heading"
             className="mb-6 font-semibold leading-[1.08]"
@@ -112,9 +101,9 @@ export default function WhoShouldAttendSection() {
             className="max-w-[740px] font-body leading-[1.7]"
             style={{ fontSize: "clamp(0.95rem, 1.4vw, 1.05rem)", color: "#59616C" }}
           >
-            The MEEI Summit unites a diverse community of leaders and professionals
-            from across Africa and China, here to connect, collaborate, and drive
-            lasting impact.
+            The China–Africa Business &amp; Investment Summit unites a diverse
+            community of leaders and professionals to connect, collaborate, and
+            drive lasting impact.
           </p>
         </div>
 
