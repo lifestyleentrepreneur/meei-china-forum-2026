@@ -26,6 +26,7 @@ export const siteConfig = {
   dates: "17–20 October 2026",
   dateStart: "2026-10-17",
   dateEnd: "2026-10-20",
+  registrationCloses: "31 August 2026",
   venue: "Vienna International Hotel",
   venueAddress: "No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China",
   venueCity: "Guangzhou, China",
