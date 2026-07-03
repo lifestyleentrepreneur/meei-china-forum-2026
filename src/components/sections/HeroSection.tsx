@@ -33,7 +33,17 @@ export default function HeroSection() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.42) 45%, rgba(255,255,255,0.6) 100%)",
+            "linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.42) 45%, rgba(255,255,255,0.55) 78%, rgba(255,255,255,0.2) 90%, rgba(255,255,255,0) 100%)",
+        }}
+      />
+
+      {/* ── Bottom fade into the dark Summit Agenda section ── */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[32%]"
+        aria-hidden="true"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(5,8,6,0) 0%, rgba(5,8,6,0.55) 55%, #050806 100%)",
         }}
       />
 
@@ -164,15 +174,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom border */}
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-px"
-        style={{
-          background:
-            "linear-gradient(to right, transparent, rgba(255,255,255,0.07), transparent)",
-        }}
-        aria-hidden="true"
-      />
     </section>
   );
 }
