@@ -74,12 +74,12 @@ export default function HeroSection() {
             {/* Banner title */}
             <motion.h1
               {...fadeUp(0.14)}
-              className="mb-5 uppercase leading-[0.95]"
+              className="mb-12 uppercase"
               style={{ fontFamily: "var(--font-oswald)" }}
             >
               <span
-                className="block font-bold tracking-[0.02em]"
-                style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
+                className="mb-5 block font-bold leading-[0.92] tracking-[0.02em]"
+                style={{ fontSize: "clamp(3.2rem, 9vw, 8rem)" }}
               >
                 <span style={{ color: "#AE301E" }}>China</span>
                 <span className="text-white">&nbsp;–&nbsp;</span>
@@ -87,83 +87,82 @@ export default function HeroSection() {
               </span>
               <span
                 className="block font-semibold text-white tracking-[0.06em]"
-                style={{ fontSize: "clamp(1.35rem, 3.2vw, 2.9rem)" }}
+                style={{ fontSize: "clamp(1.5rem, 3.6vw, 3.2rem)" }}
               >
                 Business &amp; Investment Summit
               </span>
             </motion.h1>
 
-            {/* Calendar + Venue */}
-            <motion.div
-              {...fadeUp(0.22)}
-              className="mb-7 flex flex-col items-center gap-5 sm:flex-row sm:items-stretch sm:justify-center sm:gap-7"
-            >
-              {/* Date */}
-              <div className="flex items-center gap-3">
-                <div className="relative flex h-12 w-12 shrink-0 flex-col overflow-hidden rounded-lg bg-white shadow-lg">
-                  <div className="h-3 w-full" style={{ background: "#AE301E" }} />
-                  <div className="flex flex-1 items-center justify-center">
-                    <Calendar className="h-5 w-5 text-neutral-800" aria-hidden="true" />
+            {/* Calendar + Venue on a white card */}
+            <motion.div {...fadeUp(0.22)} className="mb-14 w-full max-w-3xl">
+              <div className="mx-auto flex flex-col items-center gap-5 rounded-2xl bg-white px-7 py-5 shadow-2xl sm:flex-row sm:items-center sm:justify-center sm:gap-8">
+                {/* Date */}
+                <div className="flex items-center gap-3">
+                  <div className="relative flex h-12 w-12 shrink-0 flex-col overflow-hidden rounded-lg border border-neutral-200">
+                    <div className="h-3 w-full" style={{ background: "#AE301E" }} />
+                    <div className="flex flex-1 items-center justify-center bg-white">
+                      <Calendar className="h-5 w-5 text-neutral-800" aria-hidden="true" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <span
+                      className="font-bold leading-none text-neutral-900"
+                      style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.9rem, 3vw, 2.7rem)" }}
+                    >
+                      {dateDays}
+                    </span>
+                    <span
+                      className="flex flex-col text-left uppercase leading-tight"
+                      style={{ fontFamily: "var(--font-oswald)" }}
+                    >
+                      <span className="font-semibold tracking-[0.08em] text-neutral-800" style={{ fontSize: "0.95rem" }}>
+                        {dateMonth}
+                      </span>
+                      <span className="tracking-[0.14em] text-neutral-500" style={{ fontSize: "0.85rem" }}>
+                        {dateYear}
+                      </span>
+                    </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2.5">
-                  <span
-                    className="font-bold leading-none text-white"
-                    style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)" }}
-                  >
-                    {dateDays}
-                  </span>
-                  <span
-                    className="flex flex-col text-left uppercase leading-tight"
-                    style={{ fontFamily: "var(--font-oswald)" }}
-                  >
-                    <span className="font-semibold tracking-[0.08em] text-white" style={{ fontSize: "0.95rem" }}>
-                      {dateMonth}
-                    </span>
-                    <span className="tracking-[0.14em] text-white/70" style={{ fontSize: "0.85rem" }}>
-                      {dateYear}
-                    </span>
-                  </span>
-                </div>
-              </div>
 
-              {/* Divider */}
-              <div
-                className="hidden w-px shrink-0 sm:block"
-                style={{ background: "rgba(255,255,255,0.22)" }}
-                aria-hidden="true"
-              />
-
-              {/* Venue */}
-              <div className="flex items-center gap-3 text-left">
-                <MapPin
-                  className="h-6 w-6 shrink-0"
-                  style={{ color: "#AE301E" }}
+                {/* Divider */}
+                <div
+                  className="hidden h-12 w-px shrink-0 sm:block"
+                  style={{ background: "rgba(0,0,0,0.12)" }}
                   aria-hidden="true"
                 />
-                <div className="leading-snug">
-                  <p className="font-semibold text-white" style={{ fontSize: "0.98rem" }}>
-                    {siteConfig.venue}
-                  </p>
-                  <p className="font-body text-white/70" style={{ fontSize: "0.82rem" }}>
-                    {siteConfig.venueAddress}
-                  </p>
+
+                {/* Venue */}
+                <div className="flex items-center gap-3 text-left">
+                  <MapPin
+                    className="h-6 w-6 shrink-0"
+                    style={{ color: "#AE301E" }}
+                    aria-hidden="true"
+                  />
+                  <div className="leading-snug">
+                    <p className="font-semibold text-neutral-900" style={{ fontSize: "0.98rem" }}>
+                      {siteConfig.venue}
+                    </p>
+                    <p className="font-body text-neutral-500" style={{ fontSize: "0.82rem" }}>
+                      {siteConfig.venueAddress}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
             {/* Theme */}
-            <motion.div {...fadeUp(0.3)} className="mb-9 max-w-2xl">
+            <motion.div {...fadeUp(0.3)} className="mb-12 max-w-3xl">
               <p
-                className="mb-1 font-semibold uppercase tracking-[0.12em]"
-                style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1rem, 1.8vw, 1.35rem)" }}
+                className="mb-2 font-semibold uppercase tracking-[0.12em]"
+                style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.25rem, 2.6vw, 2rem)" }}
               >
                 <span style={{ color: "#D2A74F" }}>Theme:&nbsp;</span>
                 <span className="text-white">{siteConfig.theme}</span>
               </p>
               <p
                 className="font-body leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(0.9rem, 1.3vw, 1.05rem)" }}
+                style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(1.05rem, 1.7vw, 1.35rem)" }}
               >
                 {siteConfig.themeDescription}
               </p>
