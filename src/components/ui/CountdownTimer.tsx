@@ -27,13 +27,14 @@ function Bubble({
   variant: Variant;
 }) {
   const light = variant === "light";
+  const textShadow = light ? "none" : "0 1px 10px rgba(0,0,0,0.6)";
   return (
     <div className="flex flex-col items-center gap-1.5">
       <div
         className="flex h-16 w-16 items-center justify-center rounded-full border sm:h-[72px] sm:w-[72px]"
         style={{
-          borderColor: light ? "rgba(0,0,0,0.14)" : "rgba(255,255,255,0.20)",
-          background: light ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.08)",
+          borderColor: light ? "rgba(0,0,0,0.14)" : "rgba(255,255,255,0.28)",
+          background: light ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.28)",
           backdropFilter: "blur(12px)",
         }}
       >
@@ -42,6 +43,7 @@ function Bubble({
           style={{
             fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
             color: light ? "#111111" : "#ffffff",
+            textShadow,
           }}
         >
           {String(value).padStart(2, "0")}
@@ -49,7 +51,10 @@ function Bubble({
       </div>
       <span
         className="font-body text-[9px] font-semibold uppercase tracking-[0.2em]"
-        style={{ color: light ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.45)" }}
+        style={{
+          color: light ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.85)",
+          textShadow,
+        }}
       >
         {label}
       </span>

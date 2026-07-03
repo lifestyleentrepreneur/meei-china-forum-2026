@@ -168,7 +168,7 @@ export default function HeroSection() {
 
             {/* ── Countdown ── */}
             <div className="mt-10">
-              <CountdownTimer variant="light" />
+              <CountdownTimer variant="dark" />
             </div>
 
         </div>
