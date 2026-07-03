@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MapPin, CalendarDays, ArrowRight } from "lucide-react";
+import { MapPin, Calendar, ArrowRight } from "lucide-react";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import { siteConfig } from "@/data/site-content";
 
@@ -18,6 +18,9 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function HeroSection() {
+  // "17–20 October 2026" → days: "17–20", month: "October", year: "2026"
+  const [dateDays, dateMonth = "", dateYear = ""] = siteConfig.dates.split(" ");
+
   return (
     <section
       id="home"
@@ -71,26 +74,86 @@ export default function HeroSection() {
             {/* Banner title */}
             <motion.h1
               {...fadeUp(0.14)}
-              className="mb-3 uppercase leading-[0.95]"
+              className="mb-5 uppercase leading-[0.95]"
               style={{ fontFamily: "var(--font-oswald)" }}
             >
               <span
                 className="block font-bold tracking-[0.02em]"
-                style={{ color: "#C8102E", fontSize: "clamp(3rem, 8vw, 7rem)" }}
+                style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
               >
-                China&nbsp;–&nbsp;Africa
+                <span style={{ color: "#AE301E" }}>China</span>
+                <span className="text-white">&nbsp;–&nbsp;</span>
+                <span style={{ color: "#32591C" }}>Africa</span>
               </span>
               <span
                 className="block font-semibold text-white tracking-[0.06em]"
                 style={{ fontSize: "clamp(1.35rem, 3.2vw, 2.9rem)" }}
               >
-                Business &amp; Investment Summit{" "}
-                <span style={{ color: "#2FD07A" }}>2026</span>
+                Business &amp; Investment Summit
               </span>
             </motion.h1>
 
+            {/* Calendar + Venue */}
+            <motion.div
+              {...fadeUp(0.22)}
+              className="mb-7 flex flex-col items-center gap-5 sm:flex-row sm:items-stretch sm:justify-center sm:gap-7"
+            >
+              {/* Date */}
+              <div className="flex items-center gap-3">
+                <div className="relative flex h-12 w-12 shrink-0 flex-col overflow-hidden rounded-lg bg-white shadow-lg">
+                  <div className="h-3 w-full" style={{ background: "#AE301E" }} />
+                  <div className="flex flex-1 items-center justify-center">
+                    <Calendar className="h-5 w-5 text-neutral-800" aria-hidden="true" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="font-bold leading-none text-white"
+                    style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.8rem, 3vw, 2.6rem)" }}
+                  >
+                    {dateDays}
+                  </span>
+                  <span
+                    className="flex flex-col text-left uppercase leading-tight"
+                    style={{ fontFamily: "var(--font-oswald)" }}
+                  >
+                    <span className="font-semibold tracking-[0.08em] text-white" style={{ fontSize: "0.95rem" }}>
+                      {dateMonth}
+                    </span>
+                    <span className="tracking-[0.14em] text-white/70" style={{ fontSize: "0.85rem" }}>
+                      {dateYear}
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div
+                className="hidden w-px shrink-0 sm:block"
+                style={{ background: "rgba(255,255,255,0.22)" }}
+                aria-hidden="true"
+              />
+
+              {/* Venue */}
+              <div className="flex items-center gap-3 text-left">
+                <MapPin
+                  className="h-6 w-6 shrink-0"
+                  style={{ color: "#AE301E" }}
+                  aria-hidden="true"
+                />
+                <div className="leading-snug">
+                  <p className="font-semibold text-white" style={{ fontSize: "0.98rem" }}>
+                    {siteConfig.venue}
+                  </p>
+                  <p className="font-body text-white/70" style={{ fontSize: "0.82rem" }}>
+                    {siteConfig.venueAddress}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Theme */}
-            <motion.div {...fadeUp(0.22)} className="mb-6 max-w-2xl">
+            <motion.div {...fadeUp(0.3)} className="mb-9 max-w-2xl">
               <p
                 className="mb-1 font-semibold uppercase tracking-[0.12em]"
                 style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1rem, 1.8vw, 1.35rem)" }}
@@ -104,44 +167,6 @@ export default function HeroSection() {
               >
                 {siteConfig.themeDescription}
               </p>
-            </motion.div>
-
-            {/* Venue + date */}
-            <motion.div
-              {...fadeUp(0.28)}
-              className="mb-9 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-center sm:gap-5"
-            >
-              <div className="flex items-center gap-2">
-                <CalendarDays
-                  className="h-4 w-4 shrink-0"
-                  style={{ color: "#D2A74F" }}
-                  aria-hidden="true"
-                />
-                <span
-                  className="font-semibold uppercase tracking-[0.08em] text-white"
-                  style={{ fontFamily: "var(--font-oswald)", fontSize: "0.95rem" }}
-                >
-                  {siteConfig.dates}
-                </span>
-              </div>
-              <div
-                className="hidden h-4 w-px shrink-0 sm:block"
-                style={{ background: "rgba(255,255,255,0.25)" }}
-                aria-hidden="true"
-              />
-              <div className="flex items-center gap-2">
-                <MapPin
-                  className="h-4 w-4 shrink-0"
-                  style={{ color: "#D2A74F" }}
-                  aria-hidden="true"
-                />
-                <span
-                  className="font-body text-sm"
-                  style={{ color: "rgba(255,255,255,0.85)" }}
-                >
-                  {siteConfig.venue}, {siteConfig.venueCity}
-                </span>
-              </div>
             </motion.div>
 
             {/* ── CTA ── */}
@@ -161,20 +186,12 @@ export default function HeroSection() {
                 Join the Summit
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
-              <div className="flex flex-col items-center gap-1">
-                <p
-                  className="font-body text-sm"
-                  style={{ color: "rgba(255,255,255,0.45)" }}
-                >
-                  Secure your spot today.
-                </p>
-                <p
-                  className="font-body text-xs"
-                  style={{ color: "#D2A74F" }}
-                >
-                  Registration closes {siteConfig.registrationCloses}.
-                </p>
-              </div>
+              <p
+                className="font-body text-xs"
+                style={{ color: "#D2A74F" }}
+              >
+                Registration closes {siteConfig.registrationCloses}.
+              </p>
             </motion.div>
 
             {/* ── Countdown ── */}
