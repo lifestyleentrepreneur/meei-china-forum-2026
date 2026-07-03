@@ -1,10 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPin, CalendarDays, ArrowRight } from "lucide-react";
 import CountdownTimer from "@/components/ui/CountdownTimer";
-import ParticleField from "@/components/ui/ParticleField";
 import { siteConfig } from "@/data/site-content";
 
 const fadeUp = (delay = 0) => ({
@@ -24,26 +24,34 @@ export default function HeroSection() {
       className="relative min-h-screen w-full overflow-hidden bg-[#020705]"
       aria-label="China–Africa Business & Investment Summit 2026, hero"
     >
-      {/* ── Top-to-bottom black base with a subtle green in the middle ── */}
+      {/* ── Full-bleed background image (event hall) ── */}
+      <Image
+        src="/images/hero-background.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+        aria-hidden="true"
+      />
+
+      {/* ── Dark scrim so the centered white text stays readable ── */}
       <div
         className="absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to bottom, #010402 0%, #051A0F 52%, #020806 100%)",
+            "linear-gradient(to bottom, rgba(2,7,5,0.72) 0%, rgba(2,7,5,0.58) 45%, rgba(1,4,2,0.82) 100%)",
         }}
       />
 
-      {/* ── Animated white starfield ── */}
-      <ParticleField />
-
-      {/* ── Vignette to deepen the edges ── */}
+      {/* ── Center radial + vignette to focus the content ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 55%, rgba(1,4,2,0.6) 100%)",
+            "radial-gradient(ellipse 70% 60% at center, rgba(1,4,2,0.35) 0%, transparent 55%, rgba(1,4,2,0.55) 100%)",
         }}
       />
 
