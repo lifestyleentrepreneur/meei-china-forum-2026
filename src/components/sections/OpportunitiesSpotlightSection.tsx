@@ -80,10 +80,9 @@ export default function OpportunitiesSpotlightSection() {
                 const { iconSlug, label, num } = meta;
 
                 return (
-                  <Link
+                  <div
                     key={id}
-                    href={`/opportunities/${id}`}
-                    className="group flex min-h-[280px] flex-col rounded-[18px] border border-[#C8DECD] bg-white p-7 shadow-[0_8px_24px_rgba(20,50,35,0.06)] transition-all duration-200 hover:-translate-y-1 hover:border-[#8fc49a] hover:shadow-[0_16px_40px_rgba(20,50,35,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2ca640]"
+                    className="flex min-h-[280px] flex-col rounded-[18px] border border-[#C8DECD] bg-white p-7 shadow-[0_8px_24px_rgba(20,50,35,0.06)]"
                   >
                     {/* iOS line icon */}
                     <div
@@ -119,7 +118,7 @@ export default function OpportunitiesSpotlightSection() {
                     <p className="flex-1 font-body text-[14.5px] leading-[1.65] text-[#4A6358]">
                       {description}
                     </p>
-                  </Link>
+                  </div>
                 );
               })}
             </div>

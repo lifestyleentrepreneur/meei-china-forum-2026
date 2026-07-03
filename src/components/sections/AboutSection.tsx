@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import VideoPlaceholder from "@/components/ui/VideoPlaceholder";
 import { mediaConfig } from "@/data/site-content";
@@ -28,7 +27,6 @@ export default function AboutSection() {
 
           {/* Text content */}
           <div>
-            <SectionEyebrow className="mb-3">About the Summit</SectionEyebrow>
             <SectionHeading
               id="about-heading"
               className="mb-6"
@@ -73,11 +71,15 @@ export default function AboutSection() {
 
             <div className="mt-8">
               <Link
-                href="/#highlights"
-                className="inline-flex items-center gap-2 rounded-sm border px-6 py-3 font-body text-sm font-semibold uppercase tracking-widest transition-all duration-200 hover:border-[var(--green-bright)] hover:text-[var(--green-bright)] active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green-bright)]"
-                style={{ borderColor: "rgba(28,46,32,0.28)", color: HEADING_COLOR }}
+                href="/register"
+                className="group inline-flex items-center gap-2.5 rounded-full px-8 py-4 font-body text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
+                style={{ background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)" }}
               >
-                Explore the Summit
+                Join the Summit
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
               </Link>
             </div>
           </div>

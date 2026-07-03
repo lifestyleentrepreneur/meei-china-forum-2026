@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import OpportunitiesSpotlightSection from "@/components/sections/OpportunitiesSpotlightSection";
 import AboutSection from "@/components/sections/AboutSection";
+import PastEventsGallery from "@/components/sections/PastEventsGallery";
 import SpeakersSection from "@/components/sections/SpeakersSection";
 import WhoShouldAttendSection from "@/components/sections/WhoShouldAttendSection";
 import ProgrammeSection from "@/components/sections/ProgrammeSection";
@@ -28,6 +29,9 @@ export default function HomePage() {
         <div className="-mt-[120px]">
           <AboutSection />
         </div>
+
+        {/* H, Past events gallery */}
+        <PastEventsGallery />
 
         {/* I, Speakers */}
         <SpeakersSection />

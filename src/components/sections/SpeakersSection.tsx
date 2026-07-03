@@ -6,7 +6,6 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import SecondaryButton from "@/components/ui/SecondaryButton";
 import Toast from "@/components/ui/Toast";
 import { speakerPlaceholders } from "@/data/site-content";
-import { User } from "lucide-react";
 import Image from "next/image";
 
 export default function SpeakersSection() {
@@ -32,45 +31,36 @@ export default function SpeakersSection() {
           </SecondaryButton>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
           {speakerPlaceholders.map((speaker) => (
             <article
               key={speaker.id}
-              className="flex flex-col rounded-sm border border-[var(--border)] bg-[var(--surface)] overflow-hidden"
+              className="flex flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] sm:flex-row"
             >
               {/* Speaker photo */}
-              <div
-                className="relative bg-gradient-to-b from-[var(--surface-secondary)] to-[var(--background-elevated)]"
-                style={{ aspectRatio: "3/4", maxHeight: "280px" }}
-              >
-                {speaker.image ? (
-                  <Image
-                    src={speaker.image}
-                    alt={speaker.name ?? "Speaker"}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                ) : (
-                  <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-8 text-center">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)]">
-                      <User className="h-8 w-8 text-[var(--text-secondary)]" aria-hidden="true" />
-                    </div>
-                    <span className="inline-block rounded-full border border-[var(--green-dark)] bg-[var(--green-dark)]/30 px-3 py-1 font-body text-[10px] font-semibold uppercase tracking-wider text-[var(--green-bright)]">
-                      Coming Soon
-                    </span>
-                  </div>
-                )}
+              <div className="relative aspect-[4/5] w-full shrink-0 bg-[var(--surface-secondary)] sm:aspect-auto sm:w-[42%]">
+                <Image
+                  src={speaker.image ?? ""}
+                  alt={speaker.name ?? "Speaker"}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 640px) 100vw, 25vw"
+                />
               </div>
 
               {/* Speaker info */}
-              <div className="border-t border-[var(--border)] p-4">
-                <p className="font-body text-sm font-semibold uppercase tracking-wide text-[var(--text-primary)]">
-                  {speaker.name ?? "Speaker to be announced"}
-                </p>
-                {(speaker.role ?? speaker.organization ?? (!speaker.image ? "Official profile coming soon" : null)) && (
-                  <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                    {speaker.role ?? speaker.organization ?? "Official profile coming soon"}
+              <div className="flex flex-1 flex-col justify-center p-6 lg:p-7">
+                <h3 className="font-heading text-xl font-bold text-[var(--text-primary)]">
+                  {speaker.name}
+                </h3>
+                {(speaker.role || speaker.organization) && (
+                  <p className="mt-1 font-body text-sm font-semibold text-[var(--green-bright)]">
+                    {[speaker.role, speaker.organization].filter(Boolean).join(" · ")}
+                  </p>
+                )}
+                {speaker.bio && (
+                  <p className="mt-4 text-sm leading-relaxed text-[var(--text-secondary)]">
+                    {speaker.bio}
                   </p>
                 )}
               </div>

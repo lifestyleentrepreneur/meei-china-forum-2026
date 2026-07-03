@@ -33,6 +33,7 @@ export interface Speaker {
   organization: string | null;
   country: string | null;
   image: string | null;
+  bio: string | null;
   featured: boolean;
 }
 
