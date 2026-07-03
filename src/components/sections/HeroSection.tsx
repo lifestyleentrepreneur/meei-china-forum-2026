@@ -2,20 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { MapPin, Calendar, ArrowRight } from "lucide-react";
 import CountdownTimer from "@/components/ui/CountdownTimer";
 import { siteConfig } from "@/data/site-content";
-
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: {
-    duration: 0.65,
-    delay,
-    ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-  },
-});
 
 export default function HeroSection() {
   // "17–20 October 2026" → days: "17–20", month: "October", year: "2026"
@@ -63,17 +52,15 @@ export default function HeroSection() {
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-6 py-28 text-center lg:w-2/3">
 
             {/* Organizer eyebrow */}
-            <motion.p
-              {...fadeUp(0.08)}
+            <p
               className="mb-4 font-semibold uppercase tracking-[0.34em] text-white/70"
               style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(0.7rem, 1vw, 0.85rem)" }}
             >
               MEEI Program Presents
-            </motion.p>
+            </p>
 
             {/* Banner title */}
-            <motion.h1
-              {...fadeUp(0.14)}
+            <h1
               className="mb-12 uppercase"
               style={{ fontFamily: "var(--font-oswald)" }}
             >
@@ -91,10 +78,10 @@ export default function HeroSection() {
               >
                 Business &amp; Investment Summit
               </span>
-            </motion.h1>
+            </h1>
 
             {/* Calendar + Venue on a white card */}
-            <motion.div {...fadeUp(0.22)} className="mb-14 w-full max-w-3xl">
+            <div className="mb-14 w-full max-w-3xl">
               <div className="mx-auto flex flex-col items-center gap-5 rounded-full bg-white px-9 py-5 shadow-2xl sm:flex-row sm:items-center sm:justify-center sm:gap-8">
                 {/* Date */}
                 <div className="flex items-center gap-3">
@@ -149,10 +136,10 @@ export default function HeroSection() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Theme */}
-            <motion.div {...fadeUp(0.3)} className="mb-12 max-w-3xl">
+            <div className="mb-12 max-w-3xl">
               <p
                 className="mb-2 font-semibold uppercase tracking-[0.12em]"
                 style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.25rem, 2.6vw, 2rem)" }}
@@ -166,13 +153,10 @@ export default function HeroSection() {
               >
                 {siteConfig.themeDescription}
               </p>
-            </motion.div>
+            </div>
 
             {/* ── CTA ── */}
-            <motion.div
-              {...fadeUp(0.36)}
-              className="flex flex-col items-center gap-4"
-            >
+            <div className="flex flex-col items-center gap-4">
               <Link
                 href="/register"
                 className="inline-flex items-center justify-center gap-2.5 rounded-full px-10 py-5 text-lg font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
@@ -191,12 +175,12 @@ export default function HeroSection() {
               >
                 Registration closes {siteConfig.registrationCloses}.
               </p>
-            </motion.div>
+            </div>
 
             {/* ── Countdown ── */}
-            <motion.div {...fadeUp(0.44)} className="mt-10">
+            <div className="mt-10">
               <CountdownTimer />
-            </motion.div>
+            </div>
 
         </div>
       </div>
