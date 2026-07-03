@@ -86,7 +86,7 @@ export default function HeroSection() {
                 <span style={{ color: "#32591C" }}>Africa</span>
               </span>
               <span
-                className="block font-semibold text-white tracking-[0.06em]"
+                className="block font-semibold tracking-[0.06em] text-black"
                 style={{ fontSize: "clamp(1.5rem, 3.6vw, 3.2rem)" }}
               >
                 Business &amp; Investment Summit
@@ -95,7 +95,7 @@ export default function HeroSection() {
 
             {/* Calendar + Venue on a white card */}
             <motion.div {...fadeUp(0.22)} className="mb-14 w-full max-w-3xl">
-              <div className="mx-auto flex flex-col items-center gap-5 rounded-2xl bg-white px-7 py-5 shadow-2xl sm:flex-row sm:items-center sm:justify-center sm:gap-8">
+              <div className="mx-auto flex flex-col items-center gap-5 rounded-full bg-white px-9 py-5 shadow-2xl sm:flex-row sm:items-center sm:justify-center sm:gap-8">
                 {/* Date */}
                 <div className="flex items-center gap-3">
                   <div className="relative flex h-12 w-12 shrink-0 flex-col overflow-hidden rounded-lg border border-neutral-200">
@@ -106,7 +106,7 @@ export default function HeroSection() {
                   </div>
                   <div className="flex items-center gap-2.5">
                     <span
-                      className="font-bold leading-none text-neutral-900"
+                      className="whitespace-nowrap font-bold leading-none text-neutral-900"
                       style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.9rem, 3vw, 2.7rem)" }}
                     >
                       {dateDays}
@@ -158,11 +158,11 @@ export default function HeroSection() {
                 style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.25rem, 2.6vw, 2rem)" }}
               >
                 <span style={{ color: "#D2A74F" }}>Theme:&nbsp;</span>
-                <span className="text-white">{siteConfig.theme}</span>
+                <span className="text-black">{siteConfig.theme}</span>
               </p>
               <p
-                className="font-body leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(1.05rem, 1.7vw, 1.35rem)" }}
+                className="font-body leading-relaxed text-black"
+                style={{ fontSize: "clamp(1.05rem, 1.7vw, 1.35rem)" }}
               >
                 {siteConfig.themeDescription}
               </p>
