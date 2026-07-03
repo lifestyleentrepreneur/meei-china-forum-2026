@@ -41,7 +41,7 @@ export default function HeroSection() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(2,7,5,0.72) 0%, rgba(2,7,5,0.58) 45%, rgba(1,4,2,0.82) 100%)",
+            "linear-gradient(to bottom, rgba(2,7,5,0.86) 0%, rgba(2,7,5,0.74) 45%, rgba(1,4,2,0.92) 100%)",
         }}
       />
 
@@ -51,7 +51,7 @@ export default function HeroSection() {
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse 70% 60% at center, rgba(1,4,2,0.35) 0%, transparent 55%, rgba(1,4,2,0.55) 100%)",
+            "radial-gradient(ellipse 70% 60% at center, rgba(1,4,2,0.55) 0%, transparent 60%, rgba(1,4,2,0.7) 100%)",
         }}
       />
 
