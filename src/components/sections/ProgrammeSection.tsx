@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ExternalLink, CircleCheckBig, ArrowRight } from "lucide-react";
-import { agendaDays, whyAttendItems, siteConfig } from "@/data/site-content";
+import { MapPin, ExternalLink, ArrowRight } from "lucide-react";
+import { agendaDays, siteConfig } from "@/data/site-content";
 
 const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
   "Vienna International Hotel, No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China"
@@ -192,51 +192,6 @@ export default function ProgrammeSection() {
               border: "1px solid rgba(28,46,32,0.10)",
             }}
           >
-            {/* Why Attend */}
-            <h3
-              className="mb-7 font-body font-bold leading-snug"
-              style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)", color: "#1C2E20" }}
-            >
-              Why You Should Be Part of the{" "}
-              <span className="text-[var(--green-primary)]">
-                China–Africa Business &amp; Investment Summit
-              </span>
-            </h3>
-
-            <ul className="mb-8 flex flex-col gap-3.5" role="list">
-              {whyAttendItems.map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <CircleCheckBig
-                    className="mt-0.5 h-[18px] w-[18px] shrink-0"
-                    style={{ color: "var(--green-primary)" }}
-                    strokeWidth={1.75}
-                    aria-hidden="true"
-                  />
-                  <span className="text-sm leading-relaxed" style={{ color: "#4A5E4F" }}>
-                    {item.text}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            {/* Register CTA */}
-            <Link
-              href="/register"
-              className="mb-10 flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
-              style={{
-                background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)",
-              }}
-            >
-              Join the Summit
-            </Link>
-
-            {/* Divider */}
-            <div
-              className="mb-7 h-px"
-              style={{ background: "rgba(28,46,32,0.10)" }}
-              aria-hidden="true"
-            />
-
             {/* Venue */}
             <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--green-primary)]">
               Venue

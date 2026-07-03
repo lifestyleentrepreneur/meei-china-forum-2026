@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { summitHighlights } from "@/data/site-content";
+import { ArrowRight, CircleCheckBig } from "lucide-react";
+import { summitHighlights, whyAttendItems } from "@/data/site-content";
 
 const FEATURED_IDS = ["investment", "manufacturing", "trade"];
 
@@ -161,6 +161,60 @@ export default function OpportunitiesSpotlightSection() {
                   </Link>
                 );
               })}
+            </div>
+
+            {/* ── Why attend (merged in) ── */}
+            <div className="mt-10 border-t border-[#C8DECD] pt-10 lg:mt-14 lg:pt-14">
+              <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-14">
+                <div>
+                  <div className="mb-4 flex items-center gap-2.5">
+                    <div
+                      className="h-0.5 w-5 rounded-full"
+                      style={{ background: "#2ca640" }}
+                      aria-hidden="true"
+                    />
+                    <p className="font-body text-[12px] font-semibold uppercase tracking-[0.22em] text-[#2ca640]">
+                      Why Attend
+                    </p>
+                  </div>
+                  <h2
+                    className="mb-6 font-body font-bold leading-[1.12] text-[#10231B]"
+                    style={{ fontSize: "clamp(1.6rem, 3vw, 2.5rem)" }}
+                  >
+                    Why You Should Be Part of the China–Africa Business &amp;
+                    Investment Summit
+                  </h2>
+                  <Link
+                    href="/register"
+                    className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-body text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2ca640]"
+                    style={{
+                      background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)",
+                    }}
+                  >
+                    Join the Summit
+                    <ArrowRight
+                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </div>
+
+                <ul className="grid gap-x-6 gap-y-4 sm:grid-cols-2" role="list">
+                  {whyAttendItems.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CircleCheckBig
+                        className="mt-0.5 h-[18px] w-[18px] shrink-0"
+                        style={{ color: "#2ca640" }}
+                        strokeWidth={1.75}
+                        aria-hidden="true"
+                      />
+                      <span className="font-body text-sm leading-relaxed text-[#3D6049]">
+                        {item.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
