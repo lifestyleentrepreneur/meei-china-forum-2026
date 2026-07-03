@@ -86,7 +86,7 @@ export default function HeroSection() {
                 <span style={{ color: "#32591C" }}>Africa</span>
               </span>
               <span
-                className="block font-semibold tracking-[0.06em] text-black"
+                className="block font-semibold tracking-[0.06em] text-white"
                 style={{ fontSize: "clamp(1.5rem, 3.6vw, 3.2rem)" }}
               >
                 Business &amp; Investment Summit
@@ -158,11 +158,11 @@ export default function HeroSection() {
                 style={{ fontFamily: "var(--font-oswald)", fontSize: "clamp(1.25rem, 2.6vw, 2rem)" }}
               >
                 <span style={{ color: "#D2A74F" }}>Theme:&nbsp;</span>
-                <span className="text-black">{siteConfig.theme}</span>
+                <span className="text-white">{siteConfig.theme}</span>
               </p>
               <p
-                className="font-body leading-relaxed text-black"
-                style={{ fontSize: "clamp(1.05rem, 1.7vw, 1.35rem)" }}
+                className="font-body leading-relaxed"
+                style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(1.05rem, 1.7vw, 1.35rem)" }}
               >
                 {siteConfig.themeDescription}
               </p>
