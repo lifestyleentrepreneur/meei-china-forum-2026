@@ -2,21 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { Calendar, MapPin, ExternalLink, CircleCheckBig, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { MapPin, ExternalLink, CircleCheckBig, ArrowRight } from "lucide-react";
 import { agendaDays, whyAttendItems, siteConfig } from "@/data/site-content";
-
-const VenueMap = dynamic(() => import("@/components/ui/VenueMap"), {
-  ssr: false,
-  loading: () => (
-    <div
-      className="flex h-full w-full items-center justify-center rounded-2xl"
-      style={{ background: "#101E15" }}
-    >
-      <span className="text-xs text-[#9DA89F]">Loading map…</span>
-    </div>
-  ),
-});
 
 const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
   "Vienna International Hotel, No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China"
@@ -43,18 +31,6 @@ export default function ProgrammeSection() {
             {/* ── Header block ── */}
             <div className="mb-9">
 
-              {/* Eyebrow + line */}
-              <div className="mb-5">
-                <p className="mb-2 font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--green-bright)]">
-                  Programme
-                </p>
-                <div
-                  className="h-px w-5"
-                  style={{ background: "var(--green-bright)" }}
-                  aria-hidden="true"
-                />
-              </div>
-
               {/* Main heading */}
               <h2
                 id="programme-heading"
@@ -68,55 +44,14 @@ export default function ProgrammeSection() {
                 <span style={{ color: "var(--green-bright)" }}>Agenda</span>
               </h2>
 
-              {/* Date + venue metadata */}
-              <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-                <div className="flex items-center gap-2">
-                  <Calendar
-                    className="h-4 w-4 shrink-0"
-                    style={{ color: "var(--green-bright)" }}
-                    aria-hidden="true"
-                  />
-                  <span className="font-body text-sm text-[#9DA89F]">
-                    17–20 October 2026
-                  </span>
-                </div>
-                <div
-                  className="hidden h-3.5 w-px bg-white/15 sm:block"
-                  aria-hidden="true"
-                />
-                <div className="flex items-center gap-2">
-                  <MapPin
-                    className="h-4 w-4 shrink-0"
-                    style={{ color: "var(--green-bright)" }}
-                    aria-hidden="true"
-                  />
-                  <span className="font-body text-sm text-[#9DA89F]">
-                    Vienna International Hotel, Guangzhou
-                  </span>
-                </div>
-              </div>
-
               {/* Description */}
               <p
-                className="mb-6 max-w-[640px] font-body leading-[1.55] text-[#9DA89F] lg:text-[17px]"
+                className="max-w-[640px] font-body leading-[1.55] text-[#9DA89F] lg:text-[17px]"
               >
                 Four days of strategic conversations, business matchmaking,
                 market insight, and relationship-building between African and
                 Chinese business leaders.
               </p>
-
-              {/* CTA */}
-              <a
-                href="#agenda"
-                className="group inline-flex items-center gap-2.5 rounded-full border px-6 py-3 font-body text-sm font-semibold text-[#F4F4EF] transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green-bright)]"
-                style={{ borderColor: "rgba(53,194,74,0.32)" }}
-              >
-                View Full Programme
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </a>
             </div>
 
             {/* ── Agenda card ── */}
@@ -234,9 +169,22 @@ export default function ProgrammeSection() {
                 ))}
               </div>
             </div>
+
+            {/* Full Programme button */}
+            <Link
+              href="/programme"
+              className="group mt-6 inline-flex items-center gap-2.5 rounded-full border px-6 py-3 font-body text-sm font-semibold text-[#F4F4EF] transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green-bright)]"
+              style={{ borderColor: "rgba(53,194,74,0.32)" }}
+            >
+              Full Programme
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </Link>
           </div>
 
-          {/* ── RIGHT: Summit overview panel (unchanged) ── */}
+          {/* ── RIGHT: Summit overview panel ── */}
           <div
             className="rounded-2xl p-8 lg:col-span-2 lg:p-10"
             style={{
@@ -245,15 +193,14 @@ export default function ProgrammeSection() {
             }}
           >
             {/* Why Attend */}
-            <p className="mb-2 font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--green-primary)]">
-              Why Attend
-            </p>
             <h3
               className="mb-7 font-body font-bold leading-snug"
               style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)", color: "#1C2E20" }}
             >
-              Why You Should Be Part of{" "}
-              <span className="text-[var(--green-primary)]">MEEI 2026</span>
+              Why You Should Be Part of the{" "}
+              <span className="text-[var(--green-primary)]">
+                China–Africa Business &amp; Investment Summit
+              </span>
             </h3>
 
             <ul className="mb-8 flex flex-col gap-3.5" role="list">
@@ -280,7 +227,7 @@ export default function ProgrammeSection() {
                 background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)",
               }}
             >
-              Reserve Your Place
+              Join the Summit
             </Link>
 
             {/* Divider */}
@@ -310,21 +257,35 @@ export default function ProgrammeSection() {
               {siteConfig.venueAddress}
             </p>
 
-            {/* Interactive map */}
-            <div
-              className="mb-3 overflow-hidden rounded-2xl"
-              style={{ height: "360px", background: "#101E15" }}
-            >
-              <VenueMap />
+            {/* Venue images: outside + inside */}
+            <div className="mb-3 flex flex-col gap-3">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+                <Image
+                  src="/images/venue-outside.png"
+                  alt={`${siteConfig.venue}, exterior`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+                <Image
+                  src="/images/venue-inside.png"
+                  alt={`${siteConfig.venue}, interior`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
 
             <a
               href={DIRECTIONS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--green-primary)] focus-visible:rounded"
-              style={{ color: "#4A5E4F" }}
-              aria-label="Get directions to Vienna International Hotel on Google Maps (opens in new tab)"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--green-primary)] focus-visible:rounded"
+              style={{ color: "var(--green-primary)" }}
+              aria-label="View Vienna International Hotel on Google Maps (opens in new tab)"
             >
               View on Google Maps
               <ExternalLink className="h-3 w-3" aria-hidden="true" />

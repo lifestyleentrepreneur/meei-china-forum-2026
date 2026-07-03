@@ -1,7 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
-import ValueStrip from "@/components/sections/ValueStrip";
 import OpportunitiesSpotlightSection from "@/components/sections/OpportunitiesSpotlightSection";
 import AboutSection from "@/components/sections/AboutSection";
 import SpeakersSection from "@/components/sections/SpeakersSection";
@@ -18,9 +17,6 @@ export default function HomePage() {
       <main id="main-content">
         {/* A, Hero */}
         <HeroSection />
-
-        {/* B, Countries marquee */}
-        <ValueStrip />
 
         {/* D, Summit agenda + overview panel */}
         <ProgrammeSection />
