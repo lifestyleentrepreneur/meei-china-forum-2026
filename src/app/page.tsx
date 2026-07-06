@@ -11,6 +11,7 @@ import ProgrammeSection from "@/components/sections/ProgrammeSection";
 import CtaSection from "@/components/sections/CtaSection";
 import PartnersSection from "@/components/sections/PartnersSection";
 import FaqSection from "@/components/sections/FaqSection";
+import ContactSection from "@/components/sections/ContactSection";
 
 export default function HomePage() {
   return (
@@ -48,6 +49,9 @@ export default function HomePage() {
 
         {/* FAQ */}
         <FaqSection />
+
+        {/* Contact */}
+        <ContactSection />
 
         {/* M, CTA */}
         <CtaSection />

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -149,22 +148,12 @@ export default function Footer() {
 
           {/* ── Column 1: Brand ── */}
           <div className="flex flex-col gap-5">
-            <Link href="/" aria-label="Return to homepage">
-              <Image
-                src="/images/meei-logo-transparent.png"
-                alt={siteConfig.organizer}
-                width={140}
-                height={68}
-                className="h-10 w-auto object-contain object-left"
-              />
-            </Link>
-
-            <div>
+            <Link href="/" aria-label="Return to homepage" className="w-fit">
               <p className="mb-0.5 font-heading text-sm font-semibold uppercase tracking-wider text-[#F4F4EF]">
                 {siteConfig.organizer}
               </p>
               <p className="text-xs text-[#47c34f]">{siteConfig.organizerTagline}</p>
-            </div>
+            </Link>
 
             {/* Social links */}
             <div className="flex items-center gap-3">

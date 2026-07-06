@@ -2,15 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X, ArrowRight } from "lucide-react";
-import { siteConfig } from "@/data/site-content";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Speakers", href: "#speakers" },
-  { label: "Agenda", href: "#highlights" },
+  { label: "Agenda", href: "#agenda" },
   { label: "Tickets", href: "/register" },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -45,21 +43,7 @@ export default function Header() {
       >
         <div className="relative mx-auto flex max-w-8xl items-center justify-between gap-4">
 
-          {/* ── Brand / Logo ── */}
-          <Link
-            href="/"
-            className="flex shrink-0 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 focus-visible:rounded"
-            aria-label={`${siteConfig.siteName}, go to homepage`}
-          >
-            <Image
-              src="/images/meei-logo-transparent.png"
-              alt="MEEI Program, Bridging the Gap, Creating Success"
-              width={200}
-              height={98}
-              className="h-10 w-auto object-contain md:h-12"
-              priority
-            />
-          </Link>
+          {/* ── Brand / Logo (removed for now) ── */}
 
           {/* ── Desktop centred nav pill (visible ≥ 768 px) ── */}
           <nav
@@ -88,7 +72,7 @@ export default function Header() {
           </nav>
 
           {/* ── Right: Register button (desktop) + Hamburger (mobile) ── */}
-          <div className="flex items-center gap-3">
+          <div className="ml-auto flex items-center gap-3">
             {/* Register Now, desktop */}
             <Link
               href="/register"
