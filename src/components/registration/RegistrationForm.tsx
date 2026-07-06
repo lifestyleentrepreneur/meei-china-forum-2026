@@ -143,19 +143,14 @@ export default function RegistrationForm() {
       return;
     }
 
-    const formUrl = process.env.NEXT_PUBLIC_REGISTRATION_FORM_URL;
-    if (!formUrl) {
-      setStatus("error");
-      return;
-    }
-
     setStatus("submitting");
     try {
-      await fetch(formUrl, {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+      if (!res.ok) throw new Error("Registration request failed");
       setStatus("success");
     } catch {
       setStatus("error");
