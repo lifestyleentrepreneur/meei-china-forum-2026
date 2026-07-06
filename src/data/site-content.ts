@@ -413,10 +413,10 @@ export const attendeeTypes: AttendeeType[] = [
 
 export const faqs: FAQ[] = [
   {
-    id: "pricing",
-    question: "When will ticket prices be announced?",
+    id: "dates",
+    question: "When does the summit take place?",
     answer:
-      "Official ticket prices and package details will be published by MEEI Program. Register your interest today to be notified as soon as pricing is available.",
+      "The China–Africa Business & Investment Summit is a two-day event held on 17–18 October 2026 in Guangzhou, China.",
   },
   {
     id: "venue",
@@ -425,22 +425,28 @@ export const faqs: FAQ[] = [
       "The summit will take place at Vienna International Hotel, No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China.",
   },
   {
-    id: "dates",
-    question: "What are the summit dates?",
+    id: "who",
+    question: "Who should attend?",
     answer:
-      "The summit is scheduled for 17–18 October 2026.",
+      "The summit is designed for investors, entrepreneurs, manufacturers, exporters and importers, government representatives, trade and investment agencies, business associations, corporate leaders, industrial operators, and professional service providers engaged in Africa–China trade, investment, and industrial partnerships.",
   },
   {
-    id: "who",
-    question: "Who can attend?",
+    id: "pricing",
+    question: "How much does it cost, and what is included?",
     answer:
-      "The summit is intended for professionals and organizations interested in Africa–China trade, investment, manufacturing, market access, and industrial partnerships.",
+      "The all-inclusive delegate pass is $1,100 USD per person. It includes visa facilitation, three nights' hotel accommodation, airport transfers (both ways), full conference attendance, and a guided factory tour. It does not include international flights, daily meals and personal expenses, or optional extra activities.",
   },
   {
     id: "visa",
-    question: "Will visa-related information be provided?",
+    question: "Do you help with visas?",
     answer:
-      "Visa-support and invitation-letter procedures will be communicated through the official summit channels when available. Please contact info@meeiconference.org for enquiries.",
+      "Yes. Visa facilitation is included in your delegate pass — we handle the visa procedure for confirmed delegates. For specific enquiries, contact info@meeiconference.org.",
+  },
+  {
+    id: "registration",
+    question: "How do I register and pay?",
+    answer:
+      "Registration has two steps. First, complete the registration form to submit your details and reserve your interest. To confirm your place, pay the delegate fee by bank transfer using the account details shown at checkout, then upload your proof of payment or send it to us via WhatsApp. Your place is confirmed once payment is verified.",
   },
   {
     id: "contact",
