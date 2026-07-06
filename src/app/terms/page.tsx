@@ -71,8 +71,8 @@ export default function TermsPage() {
             </h2>
             <p>
               For questions about these Terms, please contact us at{" "}
-              <a href="mailto:info@meeiconference.org" className="text-[var(--green-bright)] hover:underline">
-                info@meeiconference.org
+              <a href="mailto:conference@meeihub.com" className="text-[var(--green-bright)] hover:underline">
+                conference@meeihub.com
               </a>
               .
             </p>

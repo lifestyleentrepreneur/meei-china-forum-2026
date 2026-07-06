@@ -15,7 +15,7 @@ import type {
 
 export const siteConfig = {
   siteName: "MEEI Program",
-  siteUrl: "https://www.meeiconference.org",
+  siteUrl: "https://summit.meeihub.com",
   organizer: "MEEI Program",
   organizerTagline: "Bridging the Gap, Creating Success",
   eventName: "China–Africa Business & Investment Summit 2026",
@@ -39,7 +39,7 @@ export const siteConfig = {
     "China–Africa Business & Investment Summit 2026 | MEEI Program",
   metaDescription:
     "Join the China–Africa Business & Investment Summit 2026 in Guangzhou, China, on 17–18 October 2026. Explore trade, investment, manufacturing, market access, business matchmaking, and sustainable industrial partnerships.",
-  canonicalUrl: "https://www.meeiconference.org",
+  canonicalUrl: "https://summit.meeihub.com",
   themeColor: "#050806",
 };
 
@@ -440,7 +440,7 @@ export const faqs: FAQ[] = [
     id: "visa",
     question: "Do you help with visas?",
     answer:
-      "Yes. Visa facilitation is included in your delegate pass — we handle the visa procedure for confirmed delegates. For specific enquiries, contact info@meeiconference.org.",
+      "Yes. Visa facilitation is included in your delegate pass — we handle the visa procedure for confirmed delegates. For specific enquiries, contact conference@meeihub.com.",
   },
   {
     id: "registration",
@@ -452,12 +452,12 @@ export const faqs: FAQ[] = [
     id: "contact",
     question: "How can I contact the organizers?",
     answer:
-      "You can reach the organizing team by email at info@meeiconference.org, by phone at +86 130 2203 1801, +234 806 361 8106, or +90 531 965 7443, or through the contact section on this website.",
+      "You can reach the organizing team by email at conference@meeihub.com, by phone at +86 130 2203 1801, +234 806 361 8106, or +90 531 965 7443, or through the contact section on this website.",
   },
 ];
 
 export const contactDetails: ContactDetails = {
-  email: "info@meeiconference.org",
+  email: "conference@meeihub.com",
   phones: [
     { label: "China", number: "+8613022031801", display: "+86 130 2203 1801" },
     {
@@ -471,8 +471,8 @@ export const contactDetails: ContactDetails = {
       display: "+90 531 965 7443",
     },
   ],
-  website: "https://www.meeiconference.org",
-  websiteDisplay: "www.meeiconference.org",
+  website: "https://summit.meeihub.com",
+  websiteDisplay: "summit.meeihub.com",
   venueShort: "Vienna International Hotel, Guangzhou, China",
   venueFull:
     "Vienna International Hotel, No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China",

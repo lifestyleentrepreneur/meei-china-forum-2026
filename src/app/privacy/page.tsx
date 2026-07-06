@@ -72,8 +72,8 @@ export default function PrivacyPage() {
               </h2>
               <p>
                 For questions about this Privacy Policy, please contact us at{" "}
-                <a href="mailto:info@meeiconference.org" className="text-[var(--green-bright)] hover:underline">
-                  info@meeiconference.org
+                <a href="mailto:conference@meeihub.com" className="text-[var(--green-bright)] hover:underline">
+                  conference@meeihub.com
                 </a>
                 .
               </p>

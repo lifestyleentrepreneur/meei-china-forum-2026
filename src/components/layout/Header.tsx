@@ -15,6 +15,7 @@ const NAV_ITEMS = [
 
 export default function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     // Switch off mobile drawer once the desktop nav is visible (≥768 px)
@@ -23,6 +24,39 @@ export default function Header() {
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // Scroll-spy: highlight the nav item for the section currently in view.
+  useEffect(() => {
+    const ids = NAV_ITEMS.filter((i) => i.href.startsWith("#")).map((i) =>
+      i.href.slice(1)
+    );
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      // Detection band across the upper-middle of the viewport.
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+
+    // At the very top of the page, force "home" active.
+    const onScroll = () => {
+      if (window.scrollY < 8) setActiveSection("home");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -54,20 +88,24 @@ export default function Header() {
               className="flex items-center gap-0.5 rounded-full border border-white/15 bg-black/30 px-1.5 py-1 shadow-xl backdrop-blur-lg"
               role="list"
             >
-              {NAV_ITEMS.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className={
-                      item.label === "Home"
-                        ? "inline-block rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#063F32] shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 lg:px-4 lg:py-1.5 lg:text-sm"
-                        : "inline-block rounded-full px-3 py-1 text-xs font-medium text-white/75 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 lg:px-4 lg:py-1.5 lg:text-sm"
-                    }
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const isActive = item.href === `#${activeSection}`;
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive ? "true" : undefined}
+                      className={
+                        isActive
+                          ? "inline-block rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#063F32] shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 lg:px-4 lg:py-1.5 lg:text-sm"
+                          : "inline-block rounded-full px-3 py-1 text-xs font-medium text-white/75 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 lg:px-4 lg:py-1.5 lg:text-sm"
+                      }
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
@@ -144,21 +182,31 @@ export default function Header() {
 
           <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto px-4 py-4">
             <ul className="flex flex-col gap-1" role="list">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    onClick={closeMobile}
-                    className={`block rounded-xl px-4 py-3 text-base font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400 ${
-                      item.label === "Home"
-                        ? "bg-white/10 font-semibold text-white"
-                        : "text-white/60 hover:bg-white/10 hover:text-white"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const isActive = item.href === `#${activeSection}`;
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      onClick={closeMobile}
+                      aria-current={isActive ? "true" : undefined}
+                      className={`flex items-center gap-2 rounded-xl px-4 py-3 text-base font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400 ${
+                        isActive
+                          ? "bg-[var(--green-bright)]/15 font-semibold text-[var(--green-bright)]"
+                          : "text-white/60 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {isActive && (
+                        <span
+                          className="h-1.5 w-1.5 rounded-full bg-[var(--green-bright)]"
+                          aria-hidden="true"
+                        />
+                      )}
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
