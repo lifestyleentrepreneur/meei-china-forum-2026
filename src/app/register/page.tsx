@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { CalendarDays, MapPin, Building2, ArrowLeft, Mail, Phone } from "lucide-react";
 import RegistrationForm from "@/components/registration/RegistrationForm";
 import { siteConfig, contactDetails, ticketPackages } from "@/data/site-content";
@@ -21,17 +20,9 @@ export default function RegisterPage() {
           <Link
             href="/"
             aria-label={`${siteConfig.organizer}, return to homepage`}
-            className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--green-bright)] focus-visible:rounded"
+            className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--green-bright)] focus-visible:rounded"
           >
-            <div className="relative h-9 w-32">
-              <Image
-                src="/brand/logo.svg"
-                alt={siteConfig.organizer}
-                fill
-                className="object-contain object-left"
-                priority
-              />
-            </div>
+            {siteConfig.organizer}
           </Link>
           <Link
             href="/"

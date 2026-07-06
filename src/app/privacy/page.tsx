@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { siteConfig } from "@/data/site-content";
 
@@ -13,10 +12,8 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-[var(--background)]">
       <header className="border-b border-[var(--border)] bg-[var(--surface)]">
         <div className="mx-auto flex max-w-8xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8 xl:px-12">
-          <Link href="/" aria-label={`${siteConfig.organizer}, return to homepage`}>
-            <div className="relative h-9 w-32">
-              <Image src="/brand/logo.svg" alt={siteConfig.organizer} fill className="object-contain object-left" />
-            </div>
+          <Link href="/" aria-label={`${siteConfig.organizer}, return to homepage`} className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)]">
+            {siteConfig.organizer}
           </Link>
           <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
