@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CalendarDays, MapPin, Building2, ArrowLeft, Mail, Phone } from "lucide-react";
 import RegistrationForm from "@/components/registration/RegistrationForm";
-import { siteConfig, contactDetails, ticketPackages } from "@/data/site-content";
+import { siteConfig, contactDetails, pricing } from "@/data/site-content";
 import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -85,39 +85,31 @@ export default function RegisterPage() {
 
             {/* Right sidebar, 4 columns */}
             <aside className="flex flex-col gap-6 lg:col-span-4">
-              {/* Package summary */}
+              {/* Delegate pass summary */}
               <div className="rounded-sm border border-[var(--border)] bg-[var(--surface)] p-5">
-                <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)]">
-                  Registration Packages
+                <h3 className="mb-1 font-heading text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)]">
+                  Delegate Pass
                 </h3>
-                <div className="flex flex-col gap-3">
-                  {ticketPackages.map((pkg) => (
-                    <div
-                      key={pkg.id}
-                      className={`rounded-sm border p-3 ${
-                        pkg.highlighted
-                          ? "border-[var(--green-primary)] bg-[var(--green-dark)]/10"
-                          : "border-[var(--border)] bg-[var(--background-elevated)]"
-                      }`}
-                    >
-                      <p className="font-heading text-xs font-semibold uppercase tracking-wide text-[var(--text-primary)]">
-                        {pkg.name}
-                      </p>
-                      <p className="mt-0.5 text-[10px] text-[var(--gold)]">{pkg.priceLabel}</p>
-                      <ul className="mt-2 flex flex-col gap-1">
-                        {pkg.features.map((f, i) => (
-                          <li key={i} className="flex items-center gap-1.5">
-                            <Check className="h-2.5 w-2.5 shrink-0 text-[var(--green-bright)]" aria-hidden="true" />
-                            <span className="text-[10px] text-[var(--text-secondary)]">{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                <div className="mb-3 flex items-baseline gap-2">
+                  <span className="font-heading text-2xl font-bold text-[var(--text-primary)]">
+                    {pricing.amount}
+                  </span>
+                  <span className="text-xs font-semibold text-[var(--green-bright)]">
+                    {pricing.currency}
+                  </span>
+                  <span className="text-[11px] text-[var(--text-secondary)]">{pricing.note}</span>
                 </div>
-                <p className="mt-3 text-[11px] text-[var(--text-secondary)]">
-                  Package details and inclusions will be published by MEEI Program.
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-[var(--green-bright)]">
+                  What&apos;s included
                 </p>
+                <ul className="flex flex-col gap-1.5">
+                  {pricing.includes.map((f, i) => (
+                    <li key={i} className="flex items-start gap-1.5">
+                      <Check className="mt-0.5 h-3 w-3 shrink-0 text-[var(--green-bright)]" aria-hidden="true" />
+                      <span className="text-[11px] leading-relaxed text-[var(--text-secondary)]">{f}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Contact fallback */}

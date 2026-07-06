@@ -551,9 +551,9 @@ export const paymentConfig = {
       currency: "US Dollar",
       amount: "$1,100",
       accountName: "Daniel Deji Ayodele",
-      bank: "", // Turkish bank name — to add
+      bank: "Türkiye Finans Katılım Bankası",
       iban: "TR680020600176042925910101",
-      swift: "", // SWIFT/BIC — to add for international transfers
+      swift: "AFKBTRIS",
     },
     {
       id: "ngn",
@@ -568,9 +568,9 @@ export const paymentConfig = {
       currency: "Turkish Lira",
       amount: "₺52,000",
       accountName: "Daniel Deji Ayodele",
-      bank: "", // Turkish bank name — to add
+      bank: "Türkiye Finans Katılım Bankası",
       iban: "TR520020600176042925910001",
-      swift: "", // SWIFT/BIC — to add for international transfers
+      swift: "AFKBTRIS",
     },
   ],
 };

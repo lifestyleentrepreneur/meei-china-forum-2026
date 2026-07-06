@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     Company: data.company ?? "",
     "Job Title": data.jobTitle ?? "",
     Industry: data.industry ?? "",
-    "Preferred Pass": data.preferredPass ?? "",
+    "Preferred Pass": "Delegate Pass",
     "B2B Interest": data.b2bInterest ?? "",
     "Needs Visa Support": data.visaInfo ?? "",
     "Dietary Requirements": data.dietary ?? "",

@@ -1,17 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useRef } from "react";
 import { AlertCircle, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
 import { contactDetails, paymentConfig, countries } from "@/data/site-content";
 import PaymentStep from "@/components/registration/PaymentStep";
-
-const passOptions = [
-  { value: "delegate", label: "Delegate Pass" },
-  { value: "business", label: "Business Matchmaking Pass" },
-  { value: "vip", label: "VIP Delegation Pass" },
-  { value: "unsure", label: "Not sure yet" },
-];
 
 const industries = [
   "Agriculture & Agribusiness",
@@ -43,7 +35,6 @@ interface FormData {
   company: string;
   jobTitle: string;
   industry: string;
-  preferredPass: string;
   b2bInterest: string;
   needsVisa: boolean;
   dietary: string;
@@ -61,7 +52,6 @@ const initialForm: FormData = {
   company: "",
   jobTitle: "",
   industry: "",
-  preferredPass: "",
   b2bInterest: "",
   needsVisa: false,
   dietary: "",
@@ -83,32 +73,19 @@ function validate(data: FormData): Errors {
   if (!data.phone.trim()) errors.phone = "Phone or WhatsApp number is required.";
   if (!data.country.trim()) errors.country = "Country of residence is required.";
   if (!data.nationality.trim()) errors.nationality = "Nationality is required.";
-  if (!data.preferredPass) errors.preferredPass = "Please select a registration package.";
   if (!data.b2bInterest) errors.b2bInterest = "Please indicate your interest in B2B matchmaking.";
   if (!data.consent) errors.consent = "You must agree to the data use notice to proceed.";
   return errors;
 }
 
 export default function RegistrationForm() {
-  const searchParams = useSearchParams();
-  const [form, setForm] = useState<FormData>(() => {
-    const pass = searchParams?.get("pass") ?? "";
-    const validPass = passOptions.find((p) => p.value === pass)?.value ?? "";
-    return { ...initialForm, preferredPass: validPass };
-  });
+  const [form, setForm] = useState<FormData>(initialForm);
 
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [recordId, setRecordId] = useState<string | null>(null);
   const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({});
   const firstErrorRef = useRef<HTMLElement | null>(null);
-
-  // Preselect pass from URL on navigation
-  useEffect(() => {
-    const pass = searchParams?.get("pass") ?? "";
-    const validPass = passOptions.find((p) => p.value === pass)?.value ?? "";
-    if (validPass) setForm((f) => ({ ...f, preferredPass: validPass }));
-  }, [searchParams]);
 
   const set = (field: keyof FormData) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -473,33 +450,6 @@ export default function RegistrationForm() {
             <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
               Summit Preferences
             </legend>
-
-            <div>
-              <label htmlFor="field-preferredPass" className={labelClass}>
-                Preferred Registration Package <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
-              </label>
-              <select
-                id="field-preferredPass"
-                value={form.preferredPass}
-                onChange={set("preferredPass")}
-                onBlur={blur("preferredPass")}
-                aria-required="true"
-                aria-invalid={!!(errors.preferredPass && touched.preferredPass)}
-                aria-describedby={errors.preferredPass && touched.preferredPass ? "err-preferredPass" : undefined}
-                className={inputClass("preferredPass")}
-              >
-                <option value="">Select a package</option>
-                {passOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
-                ))}
-              </select>
-              {errors.preferredPass && touched.preferredPass && (
-                <p id="err-preferredPass" className={errorClass} role="alert">
-                  <AlertCircle className="h-3 w-3" aria-hidden="true" />
-                  {errors.preferredPass}
-                </p>
-              )}
-            </div>
 
             <div>
               <span className={`${labelClass} mb-2 block`}>
