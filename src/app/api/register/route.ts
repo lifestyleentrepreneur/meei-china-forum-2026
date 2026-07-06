@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 const AIRTABLE_API = "https://api.airtable.com/v0";
 
 type RegistrationBody = {
-  fullName?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   phone?: string;
   country?: string;
@@ -40,16 +41,20 @@ export async function POST(req: Request) {
   }
 
   // Minimal server-side validation (client validates too).
-  if (!data.fullName?.trim() || !data.email?.trim() || !data.consent) {
+  if (!data.firstName?.trim() || !data.lastName?.trim() || !data.email?.trim() || !data.consent) {
     return NextResponse.json(
-      { error: "Full name, email, and consent are required." },
+      { error: "First name, last name, email, and consent are required." },
       { status: 400 }
     );
   }
 
+  const fullName = `${data.firstName.trim()} ${data.lastName.trim()}`;
+
   // Map form fields -> Airtable column names (must match the base exactly).
   const fields: Record<string, unknown> = {
-    "Full Name": data.fullName?.trim(),
+    "Full Name": fullName,
+    "First Name": data.firstName.trim(),
+    "Last Name": data.lastName.trim(),
     Email: data.email?.trim(),
     Phone: data.phone ?? "",
     "Country of Residence": data.country ?? "",

@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
-import { contactDetails } from "@/data/site-content";
+import { AlertCircle, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
+import { contactDetails, paymentConfig, countries } from "@/data/site-content";
+import PaymentStep from "@/components/registration/PaymentStep";
 
 const passOptions = [
   { value: "delegate", label: "Delegate Pass" },
@@ -33,7 +34,8 @@ const industries = [
 ];
 
 interface FormData {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   country: string;
@@ -43,14 +45,15 @@ interface FormData {
   industry: string;
   preferredPass: string;
   b2bInterest: string;
-  visaInfo: string;
+  needsVisa: boolean;
   dietary: string;
   notes: string;
   consent: boolean;
 }
 
 const initialForm: FormData = {
-  fullName: "",
+  firstName: "",
+  lastName: "",
   email: "",
   phone: "",
   country: "",
@@ -60,7 +63,7 @@ const initialForm: FormData = {
   industry: "",
   preferredPass: "",
   b2bInterest: "",
-  visaInfo: "",
+  needsVisa: false,
   dietary: "",
   notes: "",
   consent: false,
@@ -70,7 +73,8 @@ type Errors = Partial<Record<keyof FormData, string>>;
 
 function validate(data: FormData): Errors {
   const errors: Errors = {};
-  if (!data.fullName.trim()) errors.fullName = "Full name is required.";
+  if (!data.firstName.trim()) errors.firstName = "First name is required.";
+  if (!data.lastName.trim()) errors.lastName = "Last name is required.";
   if (!data.email.trim()) {
     errors.email = "Email address is required.";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
@@ -81,7 +85,6 @@ function validate(data: FormData): Errors {
   if (!data.nationality.trim()) errors.nationality = "Nationality is required.";
   if (!data.preferredPass) errors.preferredPass = "Please select a registration package.";
   if (!data.b2bInterest) errors.b2bInterest = "Please indicate your interest in B2B matchmaking.";
-  if (!data.visaInfo) errors.visaInfo = "Please indicate whether you need visa-invitation information.";
   if (!data.consent) errors.consent = "You must agree to the data use notice to proceed.";
   return errors;
 }
@@ -96,6 +99,7 @@ export default function RegistrationForm() {
 
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [recordId, setRecordId] = useState<string | null>(null);
   const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({});
   const firstErrorRef = useRef<HTMLElement | null>(null);
 
@@ -148,9 +152,14 @@ export default function RegistrationForm() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          visaInfo: form.needsVisa ? "Yes" : "No",
+        }),
       });
       if (!res.ok) throw new Error("Registration request failed");
+      const data = await res.json().catch(() => ({}));
+      setRecordId(data.id ?? null);
       setStatus("success");
     } catch {
       setStatus("error");
@@ -169,36 +178,17 @@ export default function RegistrationForm() {
 
   if (status === "success") {
     return (
-      <div
-        className="rounded-sm border border-[var(--green-primary)] bg-[var(--green-dark)]/20 p-8 text-center"
-        role="status"
-        aria-live="polite"
-      >
-        <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-[var(--green-bright)]" aria-hidden="true" />
-        <h2 className="font-heading text-xl font-semibold uppercase tracking-wide text-[var(--text-primary)]">
-          Registration Interest Received
-        </h2>
-        <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-          Thank you for your interest. The MEEI Program team will be in contact with further details when registration processing is confirmed.
-        </p>
-        <div className="mt-6">
-          <a
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-[var(--green-bright)] hover:underline"
-          >
-            ← Return to homepage
-          </a>
-        </div>
-      </div>
+      <PaymentStep
+        recordId={recordId}
+        name={`${form.firstName} ${form.lastName}`.trim()}
+      />
     );
   }
 
-  const formUrlConfigured = !!process.env.NEXT_PUBLIC_REGISTRATION_FORM_URL;
-
   return (
     <div>
-      {/* Registration not yet open notice */}
-      {(!formUrlConfigured || status === "error") && (
+      {/* Submission error notice */}
+      {status === "error" && (
         <div
           className="mb-6 rounded-sm border border-[var(--gold)] bg-[var(--gold)]/10 p-4"
           role="alert"
@@ -208,29 +198,41 @@ export default function RegistrationForm() {
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--gold)]" aria-hidden="true" />
             <div>
               <p className="text-sm font-medium text-[var(--ivory)]">
-                Online registration processing is being finalized.
+                Something went wrong submitting your registration.
               </p>
               <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                Please contact{" "}
+                Please try again, or contact{" "}
                 <a
                   href={`mailto:${contactDetails.email}`}
                   className="text-[var(--green-bright)] hover:underline"
                 >
                   {contactDetails.email}
                 </a>{" "}
-                to register or request assistance. You may also call{" "}
-                <a
-                  href={`tel:${contactDetails.phones[0].number}`}
-                  className="text-[var(--green-bright)] hover:underline"
-                >
-                  {contactDetails.phones[0].display}
-                </a>
-                .
+                for assistance.
               </p>
             </div>
           </div>
         </div>
       )}
+
+      {/* Questions? WhatsApp */}
+      <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-sm border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-secondary)]">
+        <MessageCircle className="h-4 w-4 shrink-0 text-[#25D366]" aria-hidden="true" />
+        <span>Have questions? Chat with us on WhatsApp:</span>
+        {paymentConfig.whatsapp.map((w) => (
+          <a
+            key={w.number}
+            href={`https://wa.me/${w.number}?text=${encodeURIComponent(
+              "Hello MEEI Program, I have a question about the China–Africa Business & Investment Summit."
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-[var(--green-bright)] hover:underline"
+          >
+            {w.display}
+          </a>
+        ))}
+      </div>
 
       <form
         onSubmit={handleSubmit}
@@ -245,29 +247,56 @@ export default function RegistrationForm() {
               Personal Information
             </legend>
 
-            <div>
-              <label htmlFor="field-fullName" className={labelClass}>
-                Full Name <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
-              </label>
-              <input
-                id="field-fullName"
-                type="text"
-                autoComplete="name"
-                value={form.fullName}
-                onChange={set("fullName")}
-                onBlur={blur("fullName")}
-                aria-required="true"
-                aria-invalid={!!(errors.fullName && touched.fullName)}
-                aria-describedby={errors.fullName && touched.fullName ? "err-fullName" : undefined}
-                className={inputClass("fullName")}
-                placeholder="Your full name"
-              />
-              {errors.fullName && touched.fullName && (
-                <p id="err-fullName" className={errorClass} role="alert">
-                  <AlertCircle className="h-3 w-3" aria-hidden="true" />
-                  {errors.fullName}
-                </p>
-              )}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="field-firstName" className={labelClass}>
+                  First Name <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="field-firstName"
+                  type="text"
+                  autoComplete="given-name"
+                  value={form.firstName}
+                  onChange={set("firstName")}
+                  onBlur={blur("firstName")}
+                  aria-required="true"
+                  aria-invalid={!!(errors.firstName && touched.firstName)}
+                  aria-describedby={errors.firstName && touched.firstName ? "err-firstName" : undefined}
+                  className={inputClass("firstName")}
+                  placeholder="First name"
+                />
+                {errors.firstName && touched.firstName && (
+                  <p id="err-firstName" className={errorClass} role="alert">
+                    <AlertCircle className="h-3 w-3" aria-hidden="true" />
+                    {errors.firstName}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="field-lastName" className={labelClass}>
+                  Last Name <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="field-lastName"
+                  type="text"
+                  autoComplete="family-name"
+                  value={form.lastName}
+                  onChange={set("lastName")}
+                  onBlur={blur("lastName")}
+                  aria-required="true"
+                  aria-invalid={!!(errors.lastName && touched.lastName)}
+                  aria-describedby={errors.lastName && touched.lastName ? "err-lastName" : undefined}
+                  className={inputClass("lastName")}
+                  placeholder="Last name"
+                />
+                {errors.lastName && touched.lastName && (
+                  <p id="err-lastName" className={errorClass} role="alert">
+                    <AlertCircle className="h-3 w-3" aria-hidden="true" />
+                    {errors.lastName}
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -327,9 +356,8 @@ export default function RegistrationForm() {
                 <label htmlFor="field-country" className={labelClass}>
                   Country of Residence <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
-                <input
+                <select
                   id="field-country"
-                  type="text"
                   autoComplete="country-name"
                   value={form.country}
                   onChange={set("country")}
@@ -338,8 +366,12 @@ export default function RegistrationForm() {
                   aria-invalid={!!(errors.country && touched.country)}
                   aria-describedby={errors.country && touched.country ? "err-country" : undefined}
                   className={inputClass("country")}
-                  placeholder="e.g. Nigeria"
-                />
+                >
+                  <option value="">Select country</option>
+                  {countries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
                 {errors.country && touched.country && (
                   <p id="err-country" className={errorClass} role="alert">
                     <AlertCircle className="h-3 w-3" aria-hidden="true" />
@@ -352,9 +384,8 @@ export default function RegistrationForm() {
                 <label htmlFor="field-nationality" className={labelClass}>
                   Nationality <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
-                <input
+                <select
                   id="field-nationality"
-                  type="text"
                   value={form.nationality}
                   onChange={set("nationality")}
                   onBlur={blur("nationality")}
@@ -362,8 +393,12 @@ export default function RegistrationForm() {
                   aria-invalid={!!(errors.nationality && touched.nationality)}
                   aria-describedby={errors.nationality && touched.nationality ? "err-nationality" : undefined}
                   className={inputClass("nationality")}
-                  placeholder="e.g. Nigerian"
-                />
+                >
+                  <option value="">Select nationality</option>
+                  {countries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
                 {errors.nationality && touched.nationality && (
                   <p id="err-nationality" className={errorClass} role="alert">
                     <AlertCircle className="h-3 w-3" aria-hidden="true" />
@@ -500,33 +535,17 @@ export default function RegistrationForm() {
               )}
             </div>
 
-            <div>
-              <span className={`${labelClass} mb-2 block`}>
-                Do you require information about a visa invitation letter?{" "}
-                <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
-              </span>
-              <div className="flex flex-col gap-2 sm:flex-row sm:gap-6" role="radiogroup">
-                {["Yes", "No"].map((val) => (
-                  <label key={val} className="flex cursor-pointer items-center gap-2">
-                    <input
-                      type="radio"
-                      name="visaInfo"
-                      value={val.toLowerCase()}
-                      checked={form.visaInfo === val.toLowerCase()}
-                      onChange={set("visaInfo")}
-                      onBlur={blur("visaInfo")}
-                      className="accent-[var(--green-bright)]"
-                    />
-                    <span className="text-sm text-[var(--text-secondary)]">{val}</span>
-                  </label>
-                ))}
-              </div>
-              {errors.visaInfo && touched.visaInfo && (
-                <p id="err-visaInfo" className={errorClass} role="alert">
-                  <AlertCircle className="h-3 w-3" aria-hidden="true" />
-                  {errors.visaInfo}
-                </p>
-              )}
+            <div className="flex items-start gap-3">
+              <input
+                id="field-needsVisa"
+                type="checkbox"
+                checked={form.needsVisa}
+                onChange={set("needsVisa")}
+                className="mt-0.5 h-4 w-4 cursor-pointer accent-[var(--green-bright)]"
+              />
+              <label htmlFor="field-needsVisa" className="cursor-pointer text-sm text-[var(--text-secondary)]">
+                I need visa support (invitation letter and assistance with the visa procedure).
+              </label>
             </div>
           </fieldset>
 
