@@ -440,7 +440,7 @@ export const faqs: FAQ[] = [
     id: "visa",
     question: "Do you help with visas?",
     answer:
-      "Yes. Visa facilitation is included in your delegate pass — we handle the visa procedure for confirmed delegates. For specific enquiries, contact conference@meeihub.com.",
+      "Yes. Visa facilitation is included in your delegate pass — we handle the visa procedure for confirmed delegates. For specific enquiries, contact info@meeiprogram.org.",
   },
   {
     id: "registration",
@@ -452,12 +452,12 @@ export const faqs: FAQ[] = [
     id: "contact",
     question: "How can I contact the organizers?",
     answer:
-      "You can reach the organizing team by email at conference@meeihub.com, by phone at +86 130 2203 1801, +234 806 361 8106, or +90 531 965 7443, or through the contact section on this website.",
+      "You can reach the organizing team by email at info@meeiprogram.org, by phone at +86 130 2203 1801, +234 806 361 8106, or +90 531 965 7443, or through the contact section on this website.",
   },
 ];
 
 export const contactDetails: ContactDetails = {
-  email: "conference@meeihub.com",
+  email: "info@meeiprogram.org",
   phones: [
     { label: "China", number: "+8613022031801", display: "+86 130 2203 1801" },
     {
