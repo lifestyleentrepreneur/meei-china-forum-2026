@@ -9,6 +9,7 @@ import WhoShouldAttendSection from "@/components/sections/WhoShouldAttendSection
 import PricingSection from "@/components/sections/PricingSection";
 import ProgrammeSection from "@/components/sections/ProgrammeSection";
 import CtaSection from "@/components/sections/CtaSection";
+import CountryRepCtaSection from "@/components/sections/CountryRepCtaSection";
 import PartnersSection from "@/components/sections/PartnersSection";
 import FaqSection from "@/components/sections/FaqSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -52,6 +53,9 @@ export default function HomePage() {
 
         {/* Contact */}
         <ContactSection />
+
+        {/* Country representative recruitment CTA */}
+        <CountryRepCtaSection />
 
         {/* M, CTA */}
         <CtaSection />
