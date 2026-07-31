@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { AlertCircle, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
+import { useRef, useState } from "react";
+import { AlertCircle, CheckCircle2, Loader2, MessageCircle, Upload, X } from "lucide-react";
 import { contactDetails, paymentConfig, countries } from "@/data/site-content";
+
+const ALLOWED_IMAGE = ["image/jpeg", "image/png", "image/webp", "image/heic"];
+const MAX_PHOTO_BYTES = 5 * 1024 * 1024; // 5 MB
 
 interface FormData {
   firstName: string;
@@ -16,6 +19,7 @@ interface FormData {
   network: string;
   languages: string;
   linkedin: string;
+  photo: File | null;
   consent: boolean;
 }
 
@@ -31,6 +35,7 @@ const initialForm: FormData = {
   network: "",
   languages: "",
   linkedin: "",
+  photo: null,
   consent: false,
 };
 
@@ -48,6 +53,13 @@ function validate(data: FormData): Errors {
   if (!data.whatsapp.trim()) errors.whatsapp = "WhatsApp number is required.";
   if (!data.country.trim()) errors.country = "Please select the country you want to represent.";
   if (!data.motivation.trim()) errors.motivation = "Please tell us why you'd like to represent your country.";
+  if (!data.photo) {
+    errors.photo = "A photo of yourself is required.";
+  } else if (!ALLOWED_IMAGE.includes(data.photo.type)) {
+    errors.photo = "Unsupported image type. Upload a JPG, PNG, or WEBP.";
+  } else if (data.photo.size > MAX_PHOTO_BYTES) {
+    errors.photo = "Photo is too large (max 5 MB).";
+  }
   if (!data.consent) errors.consent = "You must agree to the data use notice to proceed.";
   return errors;
 }
@@ -57,6 +69,15 @@ export default function CountryRepForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({});
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const photoInputRef = useRef<HTMLInputElement | null>(null);
+
+  const clearFieldError = (field: keyof FormData) =>
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
 
   const set = (field: keyof FormData) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -65,13 +86,36 @@ export default function CountryRepForm() {
       ? (e.target as HTMLInputElement).checked
       : e.target.value;
     setForm((f) => ({ ...f, [field]: value }));
-    if (touched[field]) {
-      setErrors((prev) => {
-        const next = { ...prev };
-        delete next[field];
-        return next;
-      });
-    }
+    if (touched[field]) clearFieldError(field);
+  };
+
+  const setPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setForm((f) => ({ ...f, photo: file }));
+    setTouched((t) => ({ ...t, photo: true }));
+    setPhotoPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return file ? URL.createObjectURL(file) : null;
+    });
+    // Re-validate the photo immediately for instant feedback.
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next.photo;
+      if (!file) next.photo = "A photo of yourself is required.";
+      else if (!ALLOWED_IMAGE.includes(file.type)) next.photo = "Unsupported image type. Upload a JPG, PNG, or WEBP.";
+      else if (file.size > MAX_PHOTO_BYTES) next.photo = "Photo is too large (max 5 MB).";
+      return next;
+    });
+  };
+
+  const removePhoto = () => {
+    setForm((f) => ({ ...f, photo: null }));
+    setPhotoPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+    if (photoInputRef.current) photoInputRef.current.value = "";
+    setErrors((prev) => ({ ...prev, photo: "A photo of yourself is required." }));
   };
 
   const blur = (field: keyof FormData) => () => {
@@ -95,11 +139,22 @@ export default function CountryRepForm() {
 
     setStatus("submitting");
     try {
-      const res = await fetch("/api/country-rep", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const fd = new FormData();
+      fd.append("firstName", form.firstName);
+      fd.append("lastName", form.lastName);
+      fd.append("email", form.email);
+      fd.append("whatsapp", form.whatsapp);
+      fd.append("country", form.country);
+      fd.append("city", form.city);
+      fd.append("role", form.role);
+      fd.append("motivation", form.motivation);
+      fd.append("network", form.network);
+      fd.append("languages", form.languages);
+      fd.append("linkedin", form.linkedin);
+      fd.append("consent", String(form.consent));
+      if (form.photo) fd.append("photo", form.photo);
+
+      const res = await fetch("/api/country-rep", { method: "POST", body: fd });
       if (!res.ok) throw new Error("Application request failed");
       setStatus("success");
     } catch {
@@ -293,6 +348,73 @@ export default function CountryRepForm() {
                 )}
               </div>
             </div>
+          </fieldset>
+
+          {/* Photo */}
+          <fieldset className="space-y-3">
+            <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
+              Your Photo {req}
+            </legend>
+            <p className="text-xs text-[var(--text-secondary)]">
+              Upload a clear, recent photo of yourself (JPG, PNG, or WEBP, max 5 MB). This is used to identify our representatives.
+            </p>
+
+            <div className="flex items-center gap-4">
+              {photoPreview ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={photoPreview}
+                  alt="Preview of your uploaded photo"
+                  className="h-20 w-20 shrink-0 rounded-sm border border-[var(--border)] object-cover"
+                />
+              ) : (
+                <div
+                  className="flex h-20 w-20 shrink-0 items-center justify-center rounded-sm border border-dashed border-[var(--border)] bg-[var(--background-elevated)] text-[var(--text-secondary)]/50"
+                  aria-hidden="true"
+                >
+                  <Upload className="h-6 w-6" />
+                </div>
+              )}
+
+              <div className="flex flex-col gap-2">
+                <input
+                  id="field-photo"
+                  ref={photoInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/heic"
+                  onChange={setPhoto}
+                  aria-required="true"
+                  aria-invalid={!!(errors.photo && touched.photo)}
+                  className="sr-only"
+                />
+                <label
+                  htmlFor="field-photo"
+                  className="inline-flex w-fit cursor-pointer items-center gap-2 rounded-sm border border-[var(--border)] bg-[var(--background-elevated)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--green-bright)] focus-within:ring-2 focus-within:ring-[var(--green-bright)]"
+                >
+                  <Upload className="h-4 w-4" aria-hidden="true" />
+                  {form.photo ? "Change photo" : "Choose photo"}
+                </label>
+                {form.photo && (
+                  <span className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
+                    <span className="max-w-[220px] truncate">{form.photo.name}</span>
+                    <button
+                      type="button"
+                      onClick={removePhoto}
+                      className="inline-flex items-center gap-1 text-[var(--red-primary)] hover:underline"
+                    >
+                      <X className="h-3 w-3" aria-hidden="true" />
+                      Remove
+                    </button>
+                  </span>
+                )}
+              </div>
+            </div>
+            {errors.photo && touched.photo && (
+              <p className={errorClass} role="alert">
+                <AlertCircle className="h-3 w-3" aria-hidden="true" />
+                {errors.photo}
+              </p>
+            )}
           </fieldset>
 
           {/* Representation */}

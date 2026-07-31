@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { label: "Speakers", href: "#speakers" },
   { label: "Agenda", href: "#agenda" },
   { label: "Tickets", href: "/register" },
+  { label: "Country Reps", href: "/country-rep", accent: true },
   { label: "Contact", href: "#contact" },
 ] as const;
 
@@ -98,6 +99,8 @@ export default function Header() {
                       className={
                         isActive
                           ? "inline-block rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#063F32] shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 lg:px-4 lg:py-1.5 lg:text-sm"
+                          : "accent" in item && item.accent
+                          ? "inline-block rounded-full bg-[var(--green-bright)] px-3 py-1 text-xs font-semibold text-[#04150c] shadow-sm ring-1 ring-[var(--green-bright)]/40 transition-all duration-200 hover:bg-[var(--green-primary)] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 lg:px-4 lg:py-1.5 lg:text-sm"
                           : "inline-block rounded-full px-3 py-1 text-xs font-medium text-white/75 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 lg:px-4 lg:py-1.5 lg:text-sm"
                       }
                     >
@@ -193,6 +196,8 @@ export default function Header() {
                       className={`flex items-center gap-2 rounded-xl px-4 py-3 text-base font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400 ${
                         isActive
                           ? "bg-[var(--green-bright)]/15 font-semibold text-[var(--green-bright)]"
+                          : "accent" in item && item.accent
+                          ? "bg-[var(--green-bright)] font-semibold text-[#04150c] hover:bg-[var(--green-primary)] hover:text-white"
                           : "text-white/60 hover:bg-white/10 hover:text-white"
                       }`}
                     >
