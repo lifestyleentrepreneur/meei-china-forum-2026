@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
 import {
   CheckCircle2,
   Copy,
@@ -9,6 +10,7 @@ import {
   Loader2,
   AlertCircle,
   MessageCircle,
+  ShieldCheck,
 } from "lucide-react";
 import { paymentConfig } from "@/data/site-content";
 
@@ -55,6 +57,7 @@ export default function PaymentStep({
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<"idle" | "uploading" | "done" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [acknowledged, setAcknowledged] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const waMessage = `Hello MEEI Program, I'm ${name || "a delegate"}. I've completed my registration for the China–Africa Business & Investment Summit and would like to submit my proof of payment.`;
@@ -129,8 +132,51 @@ export default function PaymentStep({
         </p>
       </div>
 
+      {/* Payment & Visa Refund acknowledgment */}
+      <div className="rounded-sm border border-[var(--gold)] bg-[var(--gold)]/10 p-5">
+        <div className="flex items-start gap-3">
+          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[var(--gold)]" aria-hidden="true" />
+          <div>
+            <p className="font-body text-sm font-semibold text-[var(--ivory)]">
+              Before you pay — Payment &amp; Visa Refund Disclaimer
+            </p>
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+              MEEI Program facilitates your visa, but issuance is at the Embassy&apos;s discretion and cannot
+              be guaranteed. If your visa is refused, you are entitled to a{" "}
+              <span className="font-medium text-[var(--ivory)]">70% refund</span> (the remaining 30% covers
+              administrative, processing, and logistics costs already incurred and is non-refundable). A
+              valid embassy refusal document is required.{" "}
+              <Link
+                href="/refund-policy"
+                target="_blank"
+                className="font-medium text-[var(--green-bright)] hover:underline"
+              >
+                Read the full policy →
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        <label className="mt-4 flex cursor-pointer items-start gap-3 border-t border-[var(--gold)]/30 pt-4">
+          <input
+            type="checkbox"
+            checked={acknowledged}
+            onChange={(e) => setAcknowledged(e.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-[var(--green-bright)]"
+            aria-describedby="ack-note"
+          />
+          <span id="ack-note" className="text-sm text-[var(--text-primary)]">
+            I have read and agree to the{" "}
+            <Link href="/refund-policy" target="_blank" className="text-[var(--green-bright)] hover:underline">
+              Payment &amp; Visa Refund Disclaimer
+            </Link>
+            , and I understand the 70% / 30% refund terms in the event of a visa refusal.
+          </span>
+        </label>
+      </div>
+
       {/* Accounts */}
-      <div>
+      <div aria-hidden={!acknowledged} className={acknowledged ? "" : "pointer-events-none opacity-50"}>
         <p className="mb-3 font-body text-sm font-semibold text-[var(--text-primary)]">
           Transfer to one of these accounts
         </p>
@@ -162,8 +208,21 @@ export default function PaymentStep({
         </div>
       </div>
 
+      {/* Locked hint until the disclaimer is acknowledged */}
+      {!acknowledged && (
+        <p className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
+          <AlertCircle className="h-3.5 w-3.5 shrink-0 text-[var(--gold)]" aria-hidden="true" />
+          Please read and accept the Payment &amp; Visa Refund Disclaimer above to continue.
+        </p>
+      )}
+
       {/* Proof of payment */}
-      <div className="rounded-sm border border-[var(--border)] bg-[var(--surface)] p-5">
+      <div
+        aria-hidden={!acknowledged}
+        className={`rounded-sm border border-[var(--border)] bg-[var(--surface)] p-5 ${
+          acknowledged ? "" : "pointer-events-none opacity-50"
+        }`}
+      >
         <p className="font-body text-sm font-semibold text-[var(--text-primary)]">
           Submit your proof of payment
         </p>
@@ -202,7 +261,7 @@ export default function PaymentStep({
             <button
               type="button"
               onClick={handleUpload}
-              disabled={status === "uploading"}
+              disabled={status === "uploading" || !acknowledged}
               className="mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-60"
               style={{ background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)" }}
             >
