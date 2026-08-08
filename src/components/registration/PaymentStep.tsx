@@ -11,6 +11,8 @@ import {
   AlertCircle,
   MessageCircle,
   ShieldCheck,
+  CreditCard,
+  ExternalLink,
 } from "lucide-react";
 import { paymentConfig } from "@/data/site-content";
 
@@ -175,6 +177,55 @@ export default function PaymentStep({
         </label>
       </div>
 
+      {/* Locked hint until the disclaimer is acknowledged */}
+      {!acknowledged && (
+        <p className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
+          <AlertCircle className="h-3.5 w-3.5 shrink-0 text-[var(--gold)]" aria-hidden="true" />
+          Please read and accept the Payment &amp; Visa Refund Disclaimer above to unlock payment.
+        </p>
+      )}
+
+      {/* Pay online by card (primary) */}
+      <div
+        aria-hidden={!acknowledged}
+        className={`rounded-sm border border-[var(--green-primary)] bg-[var(--green-dark)]/15 p-5 ${
+          acknowledged ? "" : "pointer-events-none opacity-50"
+        }`}
+      >
+        <div className="flex items-start gap-3">
+          <CreditCard className="mt-0.5 h-5 w-5 shrink-0 text-[var(--green-bright)]" aria-hidden="true" />
+          <div className="min-w-0">
+            <p className="font-body text-sm font-semibold text-[var(--text-primary)]">
+              Pay online by card
+            </p>
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+              Fastest option — pay securely by Visa, Mastercard, or other cards via Stripe. You&apos;ll
+              receive an email receipt instantly, and your place is confirmed once payment completes (no
+              need to upload proof).
+            </p>
+          </div>
+        </div>
+        <a
+          href={paymentConfig.stripeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green-bright)]"
+          style={{ background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)" }}
+        >
+          Pay {paymentConfig.total} by card
+          <ExternalLink className="h-4 w-4" aria-hidden="true" />
+        </a>
+      </div>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3" aria-hidden="true">
+        <span className="h-px flex-1 bg-[var(--border)]" />
+        <span className="text-xs uppercase tracking-wide text-[var(--text-secondary)]">
+          or pay by bank transfer
+        </span>
+        <span className="h-px flex-1 bg-[var(--border)]" />
+      </div>
+
       {/* Accounts */}
       <div aria-hidden={!acknowledged} className={acknowledged ? "" : "pointer-events-none opacity-50"}>
         <p className="mb-3 font-body text-sm font-semibold text-[var(--text-primary)]">
@@ -208,14 +259,6 @@ export default function PaymentStep({
         </div>
       </div>
 
-      {/* Locked hint until the disclaimer is acknowledged */}
-      {!acknowledged && (
-        <p className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
-          <AlertCircle className="h-3.5 w-3.5 shrink-0 text-[var(--gold)]" aria-hidden="true" />
-          Please read and accept the Payment &amp; Visa Refund Disclaimer above to continue.
-        </p>
-      )}
-
       {/* Proof of payment */}
       <div
         aria-hidden={!acknowledged}
@@ -227,8 +270,9 @@ export default function PaymentStep({
           Submit your proof of payment
         </p>
         <p className="mt-1 text-sm text-[var(--text-secondary)]">
-          Upload your receipt below, <span className="font-medium">or</span> send it to us on
-          WhatsApp. Either one confirms your payment.
+          If you paid by bank transfer, upload your receipt below, <span className="font-medium">or</span>{" "}
+          send it to us on WhatsApp. Either one confirms your payment.{" "}
+          <span className="text-[var(--text-secondary)]/70">(Not needed if you paid by card.)</span>
         </p>
 
         {/* Upload */}

@@ -539,6 +539,8 @@ export const pricing = {
 
 export const paymentConfig = {
   total: "$1,100 USD",
+  // Stripe hosted payment link (card). Charges the full delegate pass.
+  stripeUrl: "https://buy.stripe.com/28EdR8fFD6mdcbm241afS0s",
   // WhatsApp contacts (used for "send proof" and "questions"). Number = digits only.
   whatsapp: [
     { label: "Nigeria (WhatsApp Business)", number: "2348063618106", display: "+234 806 361 8106" },
