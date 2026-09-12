@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Clock } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { agendaDays } from "@/data/site-content";
+import { agendaDays, siteConfig } from "@/data/site-content";
 
 export default function AgendaSection() {
   const [activeDay, setActiveDay] = useState(agendaDays[0].id);
@@ -19,7 +19,7 @@ export default function AgendaSection() {
           <span className="text-[var(--green-bright)]">Agenda</span>
         </SectionHeading>
         <p className="mt-3 text-xs text-[var(--text-secondary)]">
-          17–20 October 2026 · Vienna International Hotel, Guangzhou
+          {siteConfig.dates} · Vienna International Hotel, Guangzhou
         </p>
       </div>
 

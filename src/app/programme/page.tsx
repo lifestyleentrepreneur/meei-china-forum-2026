@@ -7,7 +7,7 @@ import { agendaDays, siteConfig } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: `Full Programme | ${siteConfig.siteName}`,
-  description: `The complete four-day programme for the ${siteConfig.eventName}.`,
+  description: `The complete five-day programme for the ${siteConfig.eventName}.`,
 };
 
 export default function ProgrammePage() {
@@ -29,9 +29,9 @@ export default function ProgrammePage() {
               <span style={{ color: "var(--green-bright)" }}>Programme</span>
             </h1>
             <p className="mb-6 max-w-[640px] font-body leading-[1.55] text-[#9DA89F] lg:text-[17px]">
-              Two days of strategic conversations, business matchmaking, market
-              insight, and relationship-building between African and Chinese
-              business leaders.
+              Five days in Guangzhou alongside the Canton Fair: arrival and
+              welcome dinner, a full day at the Fair, the flagship Summit, a
+              guided city and factory visit, and departure.
             </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <div className="flex items-center gap-2">
@@ -79,14 +79,19 @@ export default function ProgrammePage() {
                   >
                     {day.label}
                   </span>
+                  <span className="font-body text-lg font-semibold text-[#F4F4EF]">
+                    {day.theme}
+                  </span>
+                  {day.flagship && (
+                    <span className="self-center rounded-full bg-[var(--gold)] px-2 py-0.5 font-body text-[9px] font-bold uppercase tracking-[0.14em] text-[#1C2E20]">
+                      Flagship
+                    </span>
+                  )}
                   <span
                     className="font-body text-sm font-semibold"
                     style={{ color: "var(--green-bright)" }}
                   >
-                    {day.date}
-                  </span>
-                  <span className="font-body text-sm text-[#9DA89F]">
-                    {day.theme}
+                    {day.weekday} · {day.date} 2026
                   </span>
                 </div>
 
@@ -126,6 +131,11 @@ export default function ProgrammePage() {
                         <div>
                           <p className="font-body text-[15px] font-semibold leading-snug text-[#F4F4EF]">
                             {session.title}
+                            {session.tag && (
+                              <span className="ml-2 inline-block rounded-full border border-[var(--green-bright)] px-2 py-px align-middle text-[9px] font-bold uppercase tracking-[0.14em] text-[var(--green-bright)]">
+                                {session.tag}
+                              </span>
+                            )}
                           </p>
                           {session.description && (
                             <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[#9DA89F]">

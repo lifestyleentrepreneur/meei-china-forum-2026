@@ -241,7 +241,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
                     }}
                   >
                     <p className="mb-2 font-body text-[10px] font-semibold uppercase tracking-[0.22em] text-[#47c34f]">
-                      17–20 October 2026
+                      17–21 October 2026
                     </p>
                     <h3 className="mb-2 font-heading text-lg font-bold text-[#F4F4EF]">
                       Attend MEEI 2026

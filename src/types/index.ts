@@ -80,13 +80,16 @@ export interface AgendaSession {
   time: string;
   title: string;
   description: string;
+  tag?: "Keynote" | "Panel";
 }
 
 export interface AgendaDay {
   id: string;
   date: string;
+  weekday: string;
   label: string;
   theme: string;
+  flagship?: boolean;
   sessions: AgendaSession[];
 }
 

@@ -11,7 +11,9 @@ const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${enc
 )}`;
 
 export default function ProgrammeSection() {
-  const [activeDay, setActiveDay] = useState(agendaDays[0].id);
+  const [activeDay, setActiveDay] = useState(
+    (agendaDays.find((d) => d.flagship) ?? agendaDays[0]).id
+  );
   const day = agendaDays.find((d) => d.id === activeDay) ?? agendaDays[0];
 
   return (
@@ -48,9 +50,9 @@ export default function ProgrammeSection() {
               <p
                 className="max-w-[640px] font-body leading-[1.55] text-[#9DA89F] lg:text-[17px]"
               >
-                Two days of strategic conversations, business matchmaking,
-                market insight, and relationship-building between African and
-                Chinese business leaders.
+                Five days in Guangzhou: a full day at the Canton Fair, the
+                flagship Summit with keynote, high-level panels and curated B2B
+                matchmaking, and a guided city and factory visit.
               </p>
             </div>
 
@@ -65,7 +67,7 @@ export default function ProgrammeSection() {
             >
               {/* Day tab row */}
               <div
-                className="grid grid-cols-2 border-b"
+                className="grid grid-cols-5 border-b"
                 style={{ borderColor: "rgba(255,255,255,0.08)" }}
                 role="tablist"
                 aria-label="Summit days"
@@ -78,7 +80,7 @@ export default function ProgrammeSection() {
                     aria-selected={d.id === activeDay}
                     aria-controls={`panel-${d.id}`}
                     onClick={() => setActiveDay(d.id)}
-                    className="relative py-4 text-center font-body text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--green-bright)] focus-visible:rounded"
+                    className="relative px-1 py-3 text-center font-body transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--green-bright)] focus-visible:rounded sm:py-4"
                     style={{
                       color:
                         d.id === activeDay ? "var(--green-bright)" : "#9DA89F",
@@ -90,7 +92,12 @@ export default function ProgrammeSection() {
                         aria-hidden="true"
                       />
                     )}
-                    {d.date}
+                    <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] opacity-80 sm:text-[11px]">
+                      {d.label}
+                    </span>
+                    <span className="block text-xs font-medium sm:text-sm">
+                      {d.date}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -102,6 +109,19 @@ export default function ProgrammeSection() {
                 aria-labelledby={`tab-${day.id}`}
                 className="px-6 py-2 lg:px-8"
               >
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-5 pb-1">
+                  <span className="font-body text-[15px] font-bold text-[#F4F4EF]">
+                    {day.theme}
+                  </span>
+                  {day.flagship && (
+                    <span className="rounded-full bg-[var(--gold)] px-2 py-0.5 font-body text-[9px] font-bold uppercase tracking-[0.14em] text-[#1C2E20]">
+                      Flagship
+                    </span>
+                  )}
+                  <span className="font-body text-[13px] text-[#9DA89F]">
+                    {day.weekday} · {day.date} 2026
+                  </span>
+                </div>
                 {day.sessions.map((session, i) => (
                   <div key={`${day.id}-${i}`}>
                     <div
@@ -145,6 +165,11 @@ export default function ProgrammeSection() {
                       <div>
                         <p className="font-body text-[15px] font-semibold leading-snug text-[#F4F4EF]">
                           {session.title}
+                          {session.tag && (
+                            <span className="ml-2 inline-block rounded-full border border-[var(--green-bright)] px-2 py-px align-middle text-[9px] font-bold uppercase tracking-[0.14em] text-[var(--green-bright)]">
+                              {session.tag}
+                            </span>
+                          )}
                         </p>
                         {session.description && (
                           <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[#9DA89F]">

@@ -124,7 +124,7 @@ export default function OpportunitiesPage() {
                 </h2>
                 <p className="font-body text-sm leading-relaxed" style={{ color: "#9DA89F" }}>
                   Register your interest today and secure your place at the
-                  China–Africa Business &amp; Investment Summit, 17–18 October
+                  China–Africa Business &amp; Investment Summit, 17–21 October
                   2026, Guangzhou.
                 </p>
               </div>
@@ -234,7 +234,7 @@ function Intro({ sticky }: { sticky: boolean }) {
             className="font-body text-[11px] font-semibold uppercase tracking-[0.18em]"
             style={{ color: "#47c34f" }}
           >
-            17–18 October 2026
+            17–21 October 2026
           </p>
         </div>
         <p className="mb-1 font-body text-sm font-semibold" style={{ color: "#E8EDE9" }}>

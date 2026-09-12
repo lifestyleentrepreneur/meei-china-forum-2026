@@ -7,7 +7,7 @@ import CountdownTimer from "@/components/ui/CountdownTimer";
 import { siteConfig } from "@/data/site-content";
 
 export default function HeroSection() {
-  // "17–20 October 2026" → days: "17–20", month: "October", year: "2026"
+  // "17–21 October 2026" → days: "17–21", month: "October", year: "2026"
   const [dateDays, dateMonth = "", dateYear = ""] = siteConfig.dates.split(" ");
 
   return (
