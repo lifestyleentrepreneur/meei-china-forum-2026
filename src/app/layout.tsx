@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Oswald, Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site-content";
+import MetaPixel from "@/components/analytics/MetaPixel";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -95,7 +96,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <MetaPixel />
+      </body>
     </html>
   );
 }
