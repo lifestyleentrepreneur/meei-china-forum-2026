@@ -4,6 +4,11 @@ import { useState, useRef } from "react";
 import { AlertCircle, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
 import { contactDetails, paymentConfig, countries } from "@/data/site-content";
 import PaymentStep from "@/components/registration/PaymentStep";
+import RegistrationConfirmed from "@/components/registration/RegistrationConfirmed";
+
+// "standard": paid delegate pass (visa question + payment step).
+// "in-china": selected participants already in China — no visa, no payment.
+export type RegistrationVariant = "standard" | "in-china";
 
 const industries = [
   "Agriculture & Agribusiness",
@@ -78,7 +83,12 @@ function validate(data: FormData): Errors {
   return errors;
 }
 
-export default function RegistrationForm() {
+export default function RegistrationForm({
+  variant = "standard",
+}: {
+  variant?: RegistrationVariant;
+}) {
+  const inChina = variant === "in-china";
   const [form, setForm] = useState<FormData>(initialForm);
 
   const [errors, setErrors] = useState<Errors>({});
@@ -132,6 +142,7 @@ export default function RegistrationForm() {
         body: JSON.stringify({
           ...form,
           visaInfo: form.needsVisa ? "Yes" : "No",
+          registrationType: variant,
         }),
       });
       if (!res.ok) throw new Error("Registration request failed");
@@ -154,6 +165,9 @@ export default function RegistrationForm() {
   const errorClass = "mt-1 flex items-center gap-1 text-xs text-[var(--red-primary)]";
 
   if (status === "success") {
+    if (inChina) {
+      return <RegistrationConfirmed name={`${form.firstName} ${form.lastName}`.trim()} />;
+    }
     return (
       <PaymentStep
         recordId={recordId}
@@ -485,18 +499,21 @@ export default function RegistrationForm() {
               )}
             </div>
 
-            <div className="flex items-start gap-3">
-              <input
-                id="field-needsVisa"
-                type="checkbox"
-                checked={form.needsVisa}
-                onChange={set("needsVisa")}
-                className="mt-0.5 h-4 w-4 cursor-pointer accent-[var(--green-bright)]"
-              />
-              <label htmlFor="field-needsVisa" className="cursor-pointer text-sm text-[var(--text-secondary)]">
-                I need visa support (invitation letter and assistance with the visa procedure).
-              </label>
-            </div>
+            {/* Already in China, no visa needed */}
+            {!inChina && (
+              <div className="flex items-start gap-3">
+                <input
+                  id="field-needsVisa"
+                  type="checkbox"
+                  checked={form.needsVisa}
+                  onChange={set("needsVisa")}
+                  className="mt-0.5 h-4 w-4 cursor-pointer accent-[var(--green-bright)]"
+                />
+                <label htmlFor="field-needsVisa" className="cursor-pointer text-sm text-[var(--text-secondary)]">
+                  I need visa support (invitation letter and assistance with the visa procedure).
+                </label>
+              </div>
+            )}
           </fieldset>
 
           {/* Additional details */}
@@ -578,7 +595,11 @@ export default function RegistrationForm() {
               {status === "submitting" && (
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
               )}
-              {status === "submitting" ? "Submitting…" : "Submit Registration Interest"}
+              {status === "submitting"
+                ? "Submitting…"
+                : inChina
+                  ? "Submit Registration"
+                  : "Submit Registration Interest"}
             </button>
             <p id="form-required-note" className="mt-2 text-[11px] text-[var(--text-secondary)]">
               Fields marked <span className="text-[var(--red-primary)]">*</span> are required.

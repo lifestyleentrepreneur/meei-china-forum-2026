@@ -18,6 +18,7 @@ type RegistrationBody = {
   dietary?: string;
   notes?: string;
   consent?: boolean;
+  registrationType?: string;
 };
 
 export async function POST(req: Request) {
@@ -49,6 +50,8 @@ export async function POST(req: Request) {
   }
 
   const fullName = `${data.firstName.trim()} ${data.lastName.trim()}`;
+  // Selected participants already in China: no visa, no payment.
+  const inChina = data.registrationType === "in-china";
 
   // Map form fields -> Airtable column names (must match the base exactly).
   const fields: Record<string, unknown> = {
@@ -62,13 +65,14 @@ export async function POST(req: Request) {
     Company: data.company ?? "",
     "Job Title": data.jobTitle ?? "",
     Industry: data.industry ?? "",
-    "Preferred Pass": "Delegate Pass",
+    "Preferred Pass": inChina ? "In-China Delegate (No Payment)" : "Delegate Pass",
     "B2B Interest": data.b2bInterest ?? "",
-    "Needs Visa Support": data.visaInfo ?? "",
+    "Needs Visa Support": inChina ? "No (already in China)" : data.visaInfo ?? "",
     "Dietary Requirements": data.dietary ?? "",
     Notes: data.notes ?? "",
     Consent: !!data.consent,
-    "Payment Status": "Pending",
+    // Left blank for in-China delegates so they stay out of payment follow-up.
+    ...(inChina ? {} : { "Payment Status": "Pending" }),
   };
 
   try {
