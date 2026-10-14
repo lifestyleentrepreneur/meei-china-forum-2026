@@ -5,30 +5,12 @@ import { AlertCircle, CheckCircle2, Loader2, MessageCircle } from "lucide-react"
 import { contactDetails, paymentConfig, countries } from "@/data/site-content";
 import PaymentStep from "@/components/registration/PaymentStep";
 import RegistrationConfirmed from "@/components/registration/RegistrationConfirmed";
+import { registrationCopy, type Locale, type RegistrationCopy } from "@/components/registration/registration-copy";
+import { countryLabels } from "@/data/countries-i18n";
 
 // "standard": paid delegate pass (visa question + payment step).
 // "in-china": selected participants already in China — no visa, no payment.
 export type RegistrationVariant = "standard" | "in-china";
-
-const industries = [
-  "Agriculture & Agribusiness",
-  "Banking & Finance",
-  "Construction & Real Estate",
-  "Energy & Natural Resources",
-  "Food & Beverages",
-  "Government & Public Sector",
-  "Healthcare & Pharmaceuticals",
-  "Information Technology",
-  "Logistics & Supply Chain",
-  "Manufacturing & Industry",
-  "Mining & Minerals",
-  "Professional Services",
-  "Retail & Consumer Goods",
-  "Telecommunications",
-  "Trade & Commerce",
-  "Tourism & Hospitality",
-  "Other",
-];
 
 interface FormData {
   firstName: string;
@@ -66,29 +48,34 @@ const initialForm: FormData = {
 
 type Errors = Partial<Record<keyof FormData, string>>;
 
-function validate(data: FormData): Errors {
+function validate(data: FormData, t: RegistrationCopy["form"]["errors"]): Errors {
   const errors: Errors = {};
-  if (!data.firstName.trim()) errors.firstName = "First name is required.";
-  if (!data.lastName.trim()) errors.lastName = "Last name is required.";
+  if (!data.firstName.trim()) errors.firstName = t.firstName;
+  if (!data.lastName.trim()) errors.lastName = t.lastName;
   if (!data.email.trim()) {
-    errors.email = "Email address is required.";
+    errors.email = t.emailRequired;
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = "Please enter a valid email address.";
+    errors.email = t.emailInvalid;
   }
-  if (!data.phone.trim()) errors.phone = "Phone or WhatsApp number is required.";
-  if (!data.country.trim()) errors.country = "Country of residence is required.";
-  if (!data.nationality.trim()) errors.nationality = "Nationality is required.";
-  if (!data.b2bInterest) errors.b2bInterest = "Please indicate your interest in B2B matchmaking.";
-  if (!data.consent) errors.consent = "You must agree to the data use notice to proceed.";
+  if (!data.phone.trim()) errors.phone = t.phone;
+  if (!data.country.trim()) errors.country = t.country;
+  if (!data.nationality.trim()) errors.nationality = t.nationality;
+  if (!data.b2bInterest) errors.b2bInterest = t.b2bInterest;
+  if (!data.consent) errors.consent = t.consent;
   return errors;
 }
 
 export default function RegistrationForm({
   variant = "standard",
+  locale = "en",
 }: {
   variant?: RegistrationVariant;
+  locale?: Locale;
 }) {
   const inChina = variant === "in-china";
+  const t = registrationCopy[locale].form;
+  // [stored English value, displayed label]
+  const countryOptions = locale === "en" ? countries.map((c) => [c, c]) : countryLabels[locale];
   const [form, setForm] = useState<FormData>(initialForm);
 
   const [errors, setErrors] = useState<Errors>({});
@@ -123,7 +110,7 @@ export default function RegistrationForm({
       Object.keys(form).map((k) => [k, true])
     ) as Partial<Record<keyof FormData, boolean>>;
     setTouched(allTouched);
-    const errs = validate(form);
+    const errs = validate(form, t.errors);
     setErrors(errs);
 
     if (Object.keys(errs).length > 0) {
@@ -166,7 +153,9 @@ export default function RegistrationForm({
 
   if (status === "success") {
     if (inChina) {
-      return <RegistrationConfirmed name={`${form.firstName} ${form.lastName}`.trim()} />;
+      return (
+        <RegistrationConfirmed name={`${form.firstName} ${form.lastName}`.trim()} locale={locale} />
+      );
     }
     return (
       <PaymentStep
@@ -189,17 +178,17 @@ export default function RegistrationForm({
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--gold)]" aria-hidden="true" />
             <div>
               <p className="text-sm font-medium text-[var(--ivory)]">
-                Something went wrong submitting your registration.
+                {t.errorTitle}
               </p>
               <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                Please try again, or contact{" "}
+                {t.errorBefore}{" "}
                 <a
                   href={`mailto:${contactDetails.email}`}
                   className="text-[var(--green-bright)] hover:underline"
                 >
                   {contactDetails.email}
                 </a>{" "}
-                for assistance.
+                {t.errorAfter}
               </p>
             </div>
           </div>
@@ -209,13 +198,11 @@ export default function RegistrationForm({
       {/* Questions? WhatsApp */}
       <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-sm border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-secondary)]">
         <MessageCircle className="h-4 w-4 shrink-0 text-[#25D366]" aria-hidden="true" />
-        <span>Have questions? Chat with us on WhatsApp:</span>
+        <span>{t.whatsappPrompt}</span>
         {paymentConfig.whatsapp.map((w) => (
           <a
             key={w.number}
-            href={`https://wa.me/${w.number}?text=${encodeURIComponent(
-              "Hello MEEI Program, I have a question about the China–Africa Business & Investment Summit."
-            )}`}
+            href={`https://wa.me/${w.number}?text=${encodeURIComponent(t.whatsappMessage)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-[var(--green-bright)] hover:underline"
@@ -228,20 +215,20 @@ export default function RegistrationForm({
       <form
         onSubmit={handleSubmit}
         noValidate
-        aria-label="Summit registration form"
+        aria-label={t.ariaLabel}
         ref={firstErrorRef as React.RefObject<HTMLFormElement>}
       >
         <div className="space-y-6">
           {/* Personal info */}
           <fieldset className="space-y-4">
             <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
-              Personal Information
+              {t.personalLegend}
             </legend>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="field-firstName" className={labelClass}>
-                  First Name <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                  {t.firstName} <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="field-firstName"
@@ -254,7 +241,7 @@ export default function RegistrationForm({
                   aria-invalid={!!(errors.firstName && touched.firstName)}
                   aria-describedby={errors.firstName && touched.firstName ? "err-firstName" : undefined}
                   className={inputClass("firstName")}
-                  placeholder="First name"
+                  placeholder={t.firstNamePlaceholder}
                 />
                 {errors.firstName && touched.firstName && (
                   <p id="err-firstName" className={errorClass} role="alert">
@@ -264,9 +251,9 @@ export default function RegistrationForm({
                 )}
               </div>
 
-              <div>
+              <div className={t.lastNameFirst ? "order-first" : undefined}>
                 <label htmlFor="field-lastName" className={labelClass}>
-                  Last Name <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                  {t.lastName} <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="field-lastName"
@@ -279,7 +266,7 @@ export default function RegistrationForm({
                   aria-invalid={!!(errors.lastName && touched.lastName)}
                   aria-describedby={errors.lastName && touched.lastName ? "err-lastName" : undefined}
                   className={inputClass("lastName")}
-                  placeholder="Last name"
+                  placeholder={t.lastNamePlaceholder}
                 />
                 {errors.lastName && touched.lastName && (
                   <p id="err-lastName" className={errorClass} role="alert">
@@ -293,7 +280,7 @@ export default function RegistrationForm({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="field-email" className={labelClass}>
-                  Email Address <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                  {t.email} <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="field-email"
@@ -306,7 +293,7 @@ export default function RegistrationForm({
                   aria-invalid={!!(errors.email && touched.email)}
                   aria-describedby={errors.email && touched.email ? "err-email" : undefined}
                   className={inputClass("email")}
-                  placeholder="you@example.com"
+                  placeholder={t.emailPlaceholder}
                 />
                 {errors.email && touched.email && (
                   <p id="err-email" className={errorClass} role="alert">
@@ -318,7 +305,7 @@ export default function RegistrationForm({
 
               <div>
                 <label htmlFor="field-phone" className={labelClass}>
-                  Phone / WhatsApp <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                  {t.phone} <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="field-phone"
@@ -331,7 +318,7 @@ export default function RegistrationForm({
                   aria-invalid={!!(errors.phone && touched.phone)}
                   aria-describedby={errors.phone && touched.phone ? "err-phone" : undefined}
                   className={inputClass("phone")}
-                  placeholder="+1 234 567 8900"
+                  placeholder={t.phonePlaceholder}
                 />
                 {errors.phone && touched.phone && (
                   <p id="err-phone" className={errorClass} role="alert">
@@ -345,7 +332,7 @@ export default function RegistrationForm({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="field-country" className={labelClass}>
-                  Country of Residence <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                  {t.country} <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
                 <select
                   id="field-country"
@@ -358,9 +345,9 @@ export default function RegistrationForm({
                   aria-describedby={errors.country && touched.country ? "err-country" : undefined}
                   className={inputClass("country")}
                 >
-                  <option value="">Select country</option>
-                  {countries.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                  <option value="">{t.selectCountry}</option>
+                  {countryOptions.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
                   ))}
                 </select>
                 {errors.country && touched.country && (
@@ -373,7 +360,7 @@ export default function RegistrationForm({
 
               <div>
                 <label htmlFor="field-nationality" className={labelClass}>
-                  Nationality <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                  {t.nationality} <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
                 <select
                   id="field-nationality"
@@ -385,9 +372,9 @@ export default function RegistrationForm({
                   aria-describedby={errors.nationality && touched.nationality ? "err-nationality" : undefined}
                   className={inputClass("nationality")}
                 >
-                  <option value="">Select nationality</option>
-                  {countries.map((c) => (
-                    <option key={c} value={c}>{c}</option>
+                  <option value="">{t.selectNationality}</option>
+                  {countryOptions.map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
                   ))}
                 </select>
                 {errors.nationality && touched.nationality && (
@@ -403,13 +390,13 @@ export default function RegistrationForm({
           {/* Professional info */}
           <fieldset className="space-y-4">
             <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
-              Professional Information
+              {t.professionalLegend}
             </legend>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="field-company" className={labelClass}>
-                  Company or Organization
+                  {t.company}
                 </label>
                 <input
                   id="field-company"
@@ -419,13 +406,13 @@ export default function RegistrationForm({
                   onChange={set("company")}
                   onBlur={blur("company")}
                   className={inputClass("company")}
-                  placeholder="Your company or organization"
+                  placeholder={t.companyPlaceholder}
                 />
               </div>
 
               <div>
                 <label htmlFor="field-jobTitle" className={labelClass}>
-                  Job Title
+                  {t.jobTitle}
                 </label>
                 <input
                   id="field-jobTitle"
@@ -435,14 +422,14 @@ export default function RegistrationForm({
                   onChange={set("jobTitle")}
                   onBlur={blur("jobTitle")}
                   className={inputClass("jobTitle")}
-                  placeholder="Your job title"
+                  placeholder={t.jobTitlePlaceholder}
                 />
               </div>
             </div>
 
             <div>
               <label htmlFor="field-industry" className={labelClass}>
-                Industry or Sector
+                {t.industry}
               </label>
               <select
                 id="field-industry"
@@ -451,9 +438,9 @@ export default function RegistrationForm({
                 onBlur={blur("industry")}
                 className={inputClass("industry")}
               >
-                <option value="">Select your industry</option>
-                {industries.map((ind) => (
-                  <option key={ind} value={ind}>{ind}</option>
+                <option value="">{t.selectIndustry}</option>
+                {t.industries.map(([value, label]) => (
+                  <option key={value} value={value}>{label}</option>
                 ))}
               </select>
             </div>
@@ -462,12 +449,12 @@ export default function RegistrationForm({
           {/* Summit preferences */}
           <fieldset className="space-y-4">
             <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
-              Summit Preferences
+              {t.preferencesLegend}
             </legend>
 
             <div>
               <span className={`${labelClass} mb-2 block`}>
-                Are you interested in B2B Matchmaking Sessions?{" "}
+                {t.b2bQuestion}{" "}
                 <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
               </span>
               <div
@@ -476,18 +463,18 @@ export default function RegistrationForm({
                 aria-required="true"
                 aria-labelledby="b2b-label"
               >
-                {["Yes", "No", "Undecided"].map((val) => (
-                  <label key={val} className="flex cursor-pointer items-center gap-2">
+                {t.b2bOptions.map(([value, label]) => (
+                  <label key={value} className="flex cursor-pointer items-center gap-2">
                     <input
                       type="radio"
                       name="b2bInterest"
-                      value={val.toLowerCase()}
-                      checked={form.b2bInterest === val.toLowerCase()}
+                      value={value}
+                      checked={form.b2bInterest === value}
                       onChange={set("b2bInterest")}
                       onBlur={blur("b2bInterest")}
                       className="accent-[var(--green-bright)]"
                     />
-                    <span className="text-sm text-[var(--text-secondary)]">{val}</span>
+                    <span className="text-sm text-[var(--text-secondary)]">{label}</span>
                   </label>
                 ))}
               </div>
@@ -510,7 +497,7 @@ export default function RegistrationForm({
                   className="mt-0.5 h-4 w-4 cursor-pointer accent-[var(--green-bright)]"
                 />
                 <label htmlFor="field-needsVisa" className="cursor-pointer text-sm text-[var(--text-secondary)]">
-                  I need visa support (invitation letter and assistance with the visa procedure).
+                  {t.needsVisa}
                 </label>
               </div>
             )}
@@ -519,12 +506,12 @@ export default function RegistrationForm({
           {/* Additional details */}
           <fieldset className="space-y-4">
             <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
-              Additional Details
+              {t.additionalLegend}
             </legend>
 
             <div>
               <label htmlFor="field-dietary" className={labelClass}>
-                Dietary or Accessibility Requirements
+                {t.dietary}
               </label>
               <input
                 id="field-dietary"
@@ -533,13 +520,13 @@ export default function RegistrationForm({
                 onChange={set("dietary")}
                 onBlur={blur("dietary")}
                 className={inputClass("dietary")}
-                placeholder="e.g. vegetarian, wheelchair access, etc."
+                placeholder={t.dietaryPlaceholder}
               />
             </div>
 
             <div>
               <label htmlFor="field-notes" className={labelClass}>
-                Additional Notes
+                {t.notes}
               </label>
               <textarea
                 id="field-notes"
@@ -548,7 +535,7 @@ export default function RegistrationForm({
                 onChange={set("notes")}
                 onBlur={blur("notes")}
                 className={`${inputClass("notes")} resize-none`}
-                placeholder="Any other information you would like to share with the organizers"
+                placeholder={t.notesPlaceholder}
               />
             </div>
           </fieldset>
@@ -569,10 +556,10 @@ export default function RegistrationForm({
               />
               <div>
                 <label htmlFor="field-consent" className="cursor-pointer text-sm text-[var(--text-secondary)]">
-                  I agree that MEEI Program may use the information provided in this form to process my registration interest and contact me about the summit. <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
+                  {t.consent} <span className="text-[var(--red-primary)]" aria-hidden="true">*</span>
                 </label>
                 <p id="consent-description" className="mt-1 text-[11px] text-[var(--text-secondary)]/60">
-                  Your information will be used solely for summit-related communication and will not be shared with third parties without your consent.
+                  {t.consentNote}
                 </p>
               </div>
             </div>
@@ -596,13 +583,13 @@ export default function RegistrationForm({
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
               )}
               {status === "submitting"
-                ? "Submitting…"
+                ? t.submitting
                 : inChina
-                  ? "Submit Registration"
-                  : "Submit Registration Interest"}
+                  ? t.submitInChina
+                  : t.submit}
             </button>
             <p id="form-required-note" className="mt-2 text-[11px] text-[var(--text-secondary)]">
-              Fields marked <span className="text-[var(--red-primary)]">*</span> are required.
+              {t.requiredBefore} <span className="text-[var(--red-primary)]">*</span> {t.requiredAfter}
             </p>
           </div>
         </div>

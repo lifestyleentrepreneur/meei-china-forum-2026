@@ -1,10 +1,18 @@
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { paymentConfig } from "@/data/site-content";
+import { registrationCopy, type Locale } from "@/components/registration/registration-copy";
 
 // Final step for the no-payment (already in China) registration flow.
-export default function RegistrationConfirmed({ name }: { name: string }) {
+export default function RegistrationConfirmed({
+  name,
+  locale = "en",
+}: {
+  name: string;
+  locale?: Locale;
+}) {
+  const t = registrationCopy[locale].confirmed;
   const firstName = name.split(" ")[0];
-  const waMessage = `Hello MEEI Program, I'm ${name || "a delegate"}. I've just registered for the China–Africa Business & Investment Summit (already in China).`;
+  const waMessage = t.whatsappMessage(name);
 
   return (
     <div
@@ -14,15 +22,14 @@ export default function RegistrationConfirmed({ name }: { name: string }) {
     >
       <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-[var(--green-bright)]" aria-hidden="true" />
       <h2 className="font-heading text-xl font-semibold uppercase tracking-wide text-[var(--text-primary)]">
-        Registration Received
+        {t.title}
       </h2>
       <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-        Thank you{firstName ? `, ${firstName}` : ""}. Your registration is complete — no payment is
-        required. Our team will review your details and confirm your place by email.
+        {t.body(firstName)}
       </p>
 
       <div className="mt-6 border-t border-[var(--border)] pt-5">
-        <p className="mb-3 text-sm text-[var(--text-secondary)]">Questions? Reach us on WhatsApp:</p>
+        <p className="mb-3 text-sm text-[var(--text-secondary)]">{t.whatsappPrompt}</p>
         <div className="flex flex-wrap justify-center gap-2">
           {paymentConfig.whatsapp.map((w) => (
             <a
@@ -40,7 +47,7 @@ export default function RegistrationConfirmed({ name }: { name: string }) {
       </div>
 
       <a href="/" className="mt-6 inline-flex items-center gap-2 text-sm text-[var(--green-bright)] hover:underline">
-        ← Return to homepage
+        {t.home}
       </a>
     </div>
   );
