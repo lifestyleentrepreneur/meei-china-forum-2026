@@ -1,14 +1,16 @@
 import { siteConfig, nextSummit } from "@/data/site-content";
 
 // UI copy for the registration form, its confirmation screens (registration
-// and waitlist), and the in-China registration page. Submitted values (countries, industries,
-// B2B answer) stay in English so Airtable data is consistent across languages.
+// and waitlist), the in-China registration page, and the waitlist page.
+// Submitted values (countries, industries, B2B answer) stay in English so
+// Airtable data is consistent across languages.
 export type Locale = "en" | "fr" | "zh";
 
-export const locales: { code: Locale; label: string; htmlLang: string; path: string }[] = [
-  { code: "en", label: "English", htmlLang: "en", path: "/register/in-china" },
-  { code: "fr", label: "Français", htmlLang: "fr", path: "/register/in-china/fr" },
-  { code: "zh", label: "中文", htmlLang: "zh-CN", path: "/register/in-china/zh" },
+// Each translated page lives at its English path plus `suffix`.
+export const locales: { code: Locale; label: string; htmlLang: string; ogLocale: string; suffix: string }[] = [
+  { code: "en", label: "English", htmlLang: "en", ogLocale: "en_US", suffix: "" },
+  { code: "fr", label: "Français", htmlLang: "fr", ogLocale: "fr_FR", suffix: "/fr" },
+  { code: "zh", label: "中文", htmlLang: "zh-CN", ogLocale: "zh_CN", suffix: "/zh" },
 ];
 
 const en = {
@@ -135,6 +137,29 @@ const en = {
       "Information submitted through this form is used by MEEI Program solely for summit registration and communication purposes. See our ",
     privacyLink: "Privacy Policy",
     privacyAfter: " for details.",
+  },
+  // Waitlist page; shares backHome, languageLabel, helpTitle and the privacy
+  // note with `page`.
+  waitlistPage: {
+    metaTitle: `Join the Waitlist | ${nextSummit.eventName} | ${siteConfig.organizer}`,
+    metaDescription: `Join the waitlist for the ${nextSummit.eventName}, ${nextSummit.dates}, ${nextSummit.city}. Be the first to know when delegate registration opens.`,
+    eyebrow: "MEEI Program · April 2027 Edition",
+    heading: "Join the Waitlist",
+    eventName: nextSummit.eventName,
+    dates: nextSummit.dates,
+    venue: nextSummit.venue,
+    city: nextSummit.city,
+    formHeading: "Waitlist Form",
+    benefitsTitle: "Why Join the Waitlist",
+    benefitsBody:
+      "Registration for the April 2027 summit is not open yet. There is nothing to pay now — join the waitlist and we will email you as soon as places open.",
+    benefits: [
+      "Be the first to know when delegate registration opens",
+      "Receive programme, speaker and venue updates as they are confirmed",
+      "Plan your visa early — tell us now if you will need support",
+      "Free, with no commitment to attend",
+    ],
+    helpBody: "For questions about the April 2027 summit, please contact the MEEI Program team directly.",
   },
 };
 
@@ -266,6 +291,28 @@ const fr: RegistrationCopy = {
     privacyLink: "Politique de confidentialité",
     privacyAfter: " pour plus de détails.",
   },
+  waitlistPage: {
+    metaTitle: "Liste d'attente | Sommet d'affaires et d'investissement Chine–Afrique 2027 | MEEI Program",
+    metaDescription:
+      "Rejoignez la liste d'attente du Sommet d'affaires et d'investissement Chine–Afrique 2027, du 14 au 18 avril 2027, à Guangzhou, en Chine. Soyez parmi les premiers informés de l'ouverture des inscriptions.",
+    eyebrow: "MEEI Program · Édition d'avril 2027",
+    heading: "Rejoindre la liste d'attente",
+    eventName: "Sommet d'affaires et d'investissement Chine–Afrique 2027",
+    dates: "14–18 avril 2027",
+    venue: "Lieu à confirmer",
+    city: "Guangzhou, Chine",
+    formHeading: "Formulaire de liste d'attente",
+    benefitsTitle: "Pourquoi rejoindre la liste d'attente",
+    benefitsBody:
+      "Les inscriptions pour le sommet d'avril 2027 ne sont pas encore ouvertes. Vous n'avez rien à payer pour le moment : rejoignez la liste d'attente et nous vous écrirons par e-mail dès l'ouverture des places.",
+    benefits: [
+      "Soyez parmi les premiers informés de l'ouverture des inscriptions",
+      "Recevez les actualités sur le programme, les intervenants et le lieu dès leur confirmation",
+      "Anticipez votre visa — indiquez-nous dès maintenant si vous aurez besoin d'une assistance",
+      "Gratuit et sans engagement de participation",
+    ],
+    helpBody: "Pour toute question concernant le sommet d'avril 2027, contactez directement l'équipe MEEI Program.",
+  },
 };
 
 const zh: RegistrationCopy = {
@@ -388,6 +435,28 @@ const zh: RegistrationCopy = {
     privacyBefore: "通过本表格提交的信息仅供 MEEI Program 用于峰会报名及相关沟通。详情请参阅我们的",
     privacyLink: "隐私政策",
     privacyAfter: "。",
+  },
+  waitlistPage: {
+    metaTitle: "加入候补名单 | 2027中非商业与投资峰会 | MEEI Program",
+    metaDescription:
+      "加入2027中非商业与投资峰会候补名单。峰会将于2027年4月14日至18日在中国广州举行，报名开放后您将第一时间收到通知。",
+    eyebrow: "MEEI Program · 2027年4月峰会",
+    heading: "加入候补名单",
+    eventName: "2027中非商业与投资峰会",
+    dates: "2027年4月14日至18日",
+    venue: "会场待定",
+    city: "中国广州",
+    formHeading: "候补名单登记表",
+    benefitsTitle: "为什么加入候补名单",
+    benefitsBody:
+      "2027年4月峰会的报名尚未开放。现在无需付款——加入候补名单后，名额开放时我们将第一时间通过电子邮件通知您。",
+    benefits: [
+      "报名开放时第一时间获得通知",
+      "及时获取已确认的议程、演讲嘉宾和会场信息",
+      "提前规划签证——如需签证协助，请现在告诉我们",
+      "免费登记，不承担参会义务",
+    ],
+    helpBody: "如对2027年4月峰会有任何疑问，请直接联系 MEEI Program 团队。",
   },
 };
 

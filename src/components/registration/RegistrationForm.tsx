@@ -509,42 +509,44 @@ export default function RegistrationForm({
             )}
           </fieldset>
 
-          {/* Additional details */}
-          <fieldset className="space-y-4">
-            <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
-              {t.additionalLegend}
-            </legend>
+          {/* Additional details, not asked on the waitlist */}
+          {!waitlist && (
+            <fieldset className="space-y-4">
+              <legend className="font-heading text-sm font-semibold uppercase tracking-wider text-[var(--green-bright)]">
+                {t.additionalLegend}
+              </legend>
 
-            <div>
-              <label htmlFor="field-dietary" className={labelClass}>
-                {t.dietary}
-              </label>
-              <input
-                id="field-dietary"
-                type="text"
-                value={form.dietary}
-                onChange={set("dietary")}
-                onBlur={blur("dietary")}
-                className={inputClass("dietary")}
-                placeholder={t.dietaryPlaceholder}
-              />
-            </div>
+              <div>
+                <label htmlFor="field-dietary" className={labelClass}>
+                  {t.dietary}
+                </label>
+                <input
+                  id="field-dietary"
+                  type="text"
+                  value={form.dietary}
+                  onChange={set("dietary")}
+                  onBlur={blur("dietary")}
+                  className={inputClass("dietary")}
+                  placeholder={t.dietaryPlaceholder}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="field-notes" className={labelClass}>
-                {t.notes}
-              </label>
-              <textarea
-                id="field-notes"
-                rows={3}
-                value={form.notes}
-                onChange={set("notes")}
-                onBlur={blur("notes")}
-                className={`${inputClass("notes")} resize-none`}
-                placeholder={t.notesPlaceholder}
-              />
-            </div>
-          </fieldset>
+              <div>
+                <label htmlFor="field-notes" className={labelClass}>
+                  {t.notes}
+                </label>
+                <textarea
+                  id="field-notes"
+                  rows={3}
+                  value={form.notes}
+                  onChange={set("notes")}
+                  onBlur={blur("notes")}
+                  className={`${inputClass("notes")} resize-none`}
+                  placeholder={t.notesPlaceholder}
+                />
+              </div>
+            </fieldset>
+          )}
 
           {/* Consent */}
           <div>

@@ -52,8 +52,8 @@ export async function POST(req: Request) {
   const fullName = `${data.firstName.trim()} ${data.lastName.trim()}`;
   // Selected participants already in China: no visa, no payment.
   const inChina = data.registrationType === "in-china";
-  // Next-edition waitlist (April 2027): its own table, which has no pass or
-  // payment columns.
+  // Next-edition waitlist (April 2027): its own table. The waitlist form skips
+  // dietary and notes, and the table has no pass or payment columns.
   const waitlist = data.registrationType === "waitlist";
   const table = waitlist
     ? process.env.AIRTABLE_WAITLIST_TABLE || "Waitlist-AfricaChinaSummit-2027"
@@ -73,12 +73,12 @@ export async function POST(req: Request) {
     Industry: data.industry ?? "",
     "B2B Interest": data.b2bInterest ?? "",
     "Needs Visa Support": inChina ? "No (already in China)" : data.visaInfo ?? "",
-    "Dietary Requirements": data.dietary ?? "",
-    Notes: data.notes ?? "",
     Consent: !!data.consent,
     ...(waitlist
       ? {}
       : {
+          "Dietary Requirements": data.dietary ?? "",
+          Notes: data.notes ?? "",
           "Preferred Pass": inChina ? "In-China Delegate (No Payment)" : "Delegate Pass",
           // Left blank for in-China delegates so they stay out of payment follow-up.
           ...(inChina ? {} : { "Payment Status": "Pending" }),

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarDays, MapPin, Building2, ArrowLeft, Mail, Phone, BadgeCheck, Languages } from "lucide-react";
+import { CalendarDays, MapPin, Building2, ArrowLeft, Mail, Phone, BadgeCheck } from "lucide-react";
 import RegistrationForm from "@/components/registration/RegistrationForm";
+import LanguageSwitcher from "@/components/registration/LanguageSwitcher";
 import { registrationCopy, locales, type Locale } from "@/components/registration/registration-copy";
 import { siteConfig, contactDetails } from "@/data/site-content";
 
@@ -46,29 +47,7 @@ export default function InChinaRegistrationPage({ locale }: { locale: Locale }) 
         {/* Page header */}
         <div className="border-b border-[var(--border)] bg-[var(--surface)] py-12">
           <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8 xl:px-12">
-            {/* Language switcher */}
-            <nav aria-label={t.languageLabel} className="mb-6 flex flex-wrap items-center gap-2">
-              <Languages className="h-4 w-4 text-[var(--text-secondary)]" aria-hidden="true" />
-              {locales.map((l) => {
-                const active = l.code === locale;
-                return (
-                  <Link
-                    key={l.code}
-                    href={l.path}
-                    lang={l.htmlLang}
-                    hrefLang={l.htmlLang}
-                    aria-current={active ? "page" : undefined}
-                    className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--green-bright)] ${
-                      active
-                        ? "border-[var(--green-bright)] bg-[var(--green-dark)]/30 text-[var(--text-primary)]"
-                        : "border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--green-bright)] hover:text-[var(--text-primary)]"
-                    }`}
-                  >
-                    {l.label}
-                  </Link>
-                );
-              })}
-            </nav>
+            <LanguageSwitcher basePath="/register/in-china" locale={locale} label={t.languageLabel} />
 
             <p className="mb-3 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-[var(--green-bright)]">
               {t.eyebrow}
