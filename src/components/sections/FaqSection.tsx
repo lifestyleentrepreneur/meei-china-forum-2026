@@ -33,16 +33,16 @@ export default function FaqSection() {
             </h2>
             <p className="font-body text-sm leading-relaxed" style={{ color: "#9DA89F" }}>
               Proactively answering your questions about the MEEI China Business
-              Forum 2026, venue, dates, who can attend, and how to get in touch.
+              Forum 2027, venue, dates, who can attend, and how to get in touch.
             </p>
 
             {/* ── Subtle CTAs ── */}
             <div className="mt-8 flex flex-col gap-3">
               <Link
-                href="/register"
+                href="/waitlist"
                 className="group inline-flex w-fit items-center gap-2 rounded-full bg-[#2ca640] px-6 py-2.5 font-body text-sm font-semibold text-white transition-all duration-200 hover:bg-[#078442] active:scale-95"
               >
-                Secure Your Spot
+                Join the Waitlist
                 <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               </Link>
               <Link

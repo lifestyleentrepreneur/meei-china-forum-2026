@@ -181,11 +181,11 @@ export default function WhoShouldAttendSection() {
         {/* ── Subtle CTA ── */}
         <div className="mt-10 flex justify-center lg:mt-14">
           <Link
-            href="/register"
+            href="/waitlist"
             className="group inline-flex items-center gap-2 rounded-full border px-7 py-3 font-body text-sm font-semibold transition-all duration-200 hover:bg-[#064E3B] hover:text-white active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#064E3B]"
             style={{ borderColor: "rgba(6,78,59,0.3)", color: DEEP_GREEN }}
           >
-            Book Your Place
+            Join the Waitlist
             <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </Link>
         </div>

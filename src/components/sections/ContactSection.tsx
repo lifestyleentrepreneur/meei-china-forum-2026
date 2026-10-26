@@ -1,7 +1,7 @@
 import { Phone, Mail, Globe, MapPin, QrCode } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { contactDetails, siteConfig } from "@/data/site-content";
+import { contactDetails, nextSummit } from "@/data/site-content";
 
 export default function ContactSection() {
   return (
@@ -87,10 +87,10 @@ export default function ContactSection() {
                   </span>
                 </div>
                 <p className="text-sm font-medium text-[var(--text-primary)]">
-                  {siteConfig.venue}
+                  {nextSummit.venue}
                 </p>
                 <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                  {siteConfig.venueAddress}
+                  {nextSummit.city}
                 </p>
               </div>
             </div>

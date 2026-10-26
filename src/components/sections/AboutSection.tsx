@@ -38,7 +38,7 @@ export default function AboutSection() {
 
             <div className="space-y-4 text-sm leading-relaxed" style={{ color: BODY_COLOR }}>
               <p>
-                The China–Africa Business &amp; Investment Summit 2026 is designed
+                The China–Africa Business &amp; Investment Summit 2027 is designed
                 to bring together stakeholders engaged in strengthening Africa–China
                 trade, investment, manufacturing, industrial cooperation, and
                 sustainable economic partnerships. Hosted in Guangzhou, one of
@@ -71,11 +71,11 @@ export default function AboutSection() {
 
             <div className="mt-8">
               <Link
-                href="/register"
+                href="/waitlist"
                 className="group inline-flex items-center gap-2.5 rounded-full px-8 py-4 font-body text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
                 style={{ background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)" }}
               >
-                Join the Summit
+                Join the Waitlist
                 <ArrowRight
                   className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                   aria-hidden="true"

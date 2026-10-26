@@ -161,11 +161,11 @@ export default function ProgrammePage() {
           {/* CTA */}
           <div className="mt-14 flex flex-col items-center gap-4 text-center">
             <Link
-              href="/register"
+              href="/waitlist"
               className="inline-flex items-center justify-center gap-2.5 rounded-full px-9 py-4 text-base font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
               style={{ background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)" }}
             >
-              Join the Summit
+              Join the Waitlist
               <ArrowRight className="h-5 w-5" aria-hidden="true" />
             </Link>
             <Link

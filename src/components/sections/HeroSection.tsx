@@ -4,17 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Calendar, ArrowRight } from "lucide-react";
 import CountdownTimer from "@/components/ui/CountdownTimer";
-import { siteConfig } from "@/data/site-content";
+import { siteConfig, nextSummit } from "@/data/site-content";
 
 export default function HeroSection() {
-  // "17–21 October 2026" → days: "17–21", month: "October", year: "2026"
-  const [dateDays, dateMonth = "", dateYear = ""] = siteConfig.dates.split(" ");
+  // "14–18 April 2027" → days: "14–18", month: "April", year: "2027"
+  const [dateDays, dateMonth = "", dateYear = ""] = nextSummit.dates.split(" ");
 
   return (
     <section
       id="home"
       className="relative min-h-screen w-full overflow-hidden bg-[#020705]"
-      aria-label="China–Africa Business & Investment Summit 2026, hero"
+      aria-label="China–Africa Business & Investment Summit 2027, hero"
     >
       {/* ── Full-bleed background image (China–Africa scene) ── */}
       <Image
@@ -120,10 +120,10 @@ export default function HeroSection() {
                   />
                   <div className="leading-snug">
                     <p className="font-semibold text-neutral-900" style={{ fontSize: "0.98rem" }}>
-                      {siteConfig.venue}
+                      {nextSummit.venue}
                     </p>
                     <p className="font-body text-neutral-500" style={{ fontSize: "0.82rem" }}>
-                      {siteConfig.venueAddress}
+                      {nextSummit.city}
                     </p>
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export default function HeroSection() {
             {/* ── CTA ── */}
             <div className="flex flex-col items-center gap-4">
               <Link
-                href="/register"
+                href="/waitlist"
                 className="inline-flex items-center justify-center gap-2.5 rounded-full px-10 py-5 text-lg font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
                 style={{
                   background:
@@ -158,11 +158,11 @@ export default function HeroSection() {
                   boxShadow: "0 10px 40px rgba(7,132,66,0.45)",
                 }}
               >
-                Join the Summit
+                Join the 2027 Waitlist
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
               <p className="font-body text-xs font-medium text-black/70">
-                Registration closes {siteConfig.registrationCloses}.
+                Venue, programme and pricing will be announced soon.
               </p>
             </div>
 

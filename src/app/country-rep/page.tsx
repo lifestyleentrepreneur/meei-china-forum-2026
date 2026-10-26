@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Mail, Phone, Globe2, Users, Megaphone, Handshake } from "lucide-react";
 import CountryRepForm from "@/components/country-rep/CountryRepForm";
-import { siteConfig, contactDetails } from "@/data/site-content";
+import { siteConfig, contactDetails, nextSummit } from "@/data/site-content";
 
 export const metadata: Metadata = {
-  title: `Become a Country Representative | ${siteConfig.metaTitle}`,
-  description: `Represent your country at the ${siteConfig.eventName}. Apply to join the MEEI Program country representative network and help build Africa–China business partnerships.`,
+  title: `Become a Country Representative | ${nextSummit.metaTitle}`,
+  description: `Represent your country at the ${nextSummit.eventName}. Apply to join the MEEI Program country representative network and help build Africa–China business partnerships.`,
 };
 
 const perks = [

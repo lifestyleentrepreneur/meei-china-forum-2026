@@ -43,7 +43,9 @@ export const siteConfig = {
   themeColor: "#050806",
 };
 
-// Next edition, collected through the /waitlist page until registration opens.
+// Next edition, promoted on the homepage and collected through the /waitlist
+// page until registration opens. Venue, programme and pricing are not
+// confirmed yet, so the site shows them as "to be announced".
 export const nextSummit = {
   eventName: "China–Africa Business & Investment Summit 2027",
   dates: "14–18 April 2027",
@@ -51,6 +53,9 @@ export const nextSummit = {
   dateEnd: "2027-04-18",
   city: "Guangzhou, China",
   venue: "Venue to be announced",
+  metaTitle: "China–Africa Business & Investment Summit 2027 | MEEI Program",
+  metaDescription:
+    "The China–Africa Business & Investment Summit returns to Guangzhou, China, on 14–18 April 2027. Join the waitlist to be the first to know when registration opens.",
 };
 
 export const navigationItems: NavItem[] = [
@@ -426,13 +431,13 @@ export const faqs: FAQ[] = [
     id: "dates",
     question: "When does the summit take place?",
     answer:
-      "The China–Africa Business & Investment Summit is a five-day programme held on 17–21 October 2026 in Guangzhou, China, alongside the Canton Fair. It includes arrival and a welcome dinner (17 Oct), a full day at the Canton Fair (18 Oct), the flagship Summit day (19 Oct), a Guangzhou city tour and factory visit (20 Oct), and departure (21 Oct).",
+      "The next China–Africa Business & Investment Summit takes place on 14–18 April 2027 in Guangzhou, China. The full programme will be announced soon — join the waitlist to receive it as soon as it is confirmed.",
   },
   {
     id: "venue",
     question: "Where will the summit take place?",
     answer:
-      "The summit will take place at Vienna International Hotel, No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China.",
+      "The summit takes place in Guangzhou, China. The venue will be announced soon, and everyone on the waitlist will hear first once it is confirmed.",
   },
   {
     id: "who",
@@ -444,19 +449,19 @@ export const faqs: FAQ[] = [
     id: "pricing",
     question: "How much does it cost, and what is included?",
     answer:
-      "The all-inclusive delegate pass is $1,100 USD per person. It includes visa facilitation, three nights' hotel accommodation, airport transfers (both ways), full conference attendance, and a guided factory tour. It does not include international flights, daily meals and personal expenses, or optional extra activities.",
+      "Pricing and package details for the April 2027 summit will be announced soon. Join the waitlist and we will email you as soon as they are confirmed.",
   },
   {
     id: "visa",
     question: "Do you help with visas?",
     answer:
-      "Yes. Visa facilitation is included in your delegate pass — we handle the visa procedure for confirmed delegates. For specific enquiries, contact info@meeiprogram.org.",
+      "Yes. MEEI Program assists delegates with the visa procedure. When you join the waitlist, let us know if you will need visa support so we can plan ahead. For specific enquiries, contact info@meeiprogram.org.",
   },
   {
     id: "registration",
-    question: "How do I register and pay?",
+    question: "How do I register?",
     answer:
-      "Registration has two steps. First, complete the registration form to submit your details and reserve your interest. To confirm your place, pay the delegate fee by bank transfer using the account details shown at checkout, then upload your proof of payment or send it to us via WhatsApp. Your place is confirmed once payment is verified.",
+      "Registration for the April 2027 summit is not open yet. Join the waitlist on this website and we will email you as soon as registration opens, along with payment details.",
   },
   {
     id: "contact",

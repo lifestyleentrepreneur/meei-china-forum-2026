@@ -14,12 +14,12 @@ import {
   Calendar,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { summitHighlights, siteConfig } from "@/data/site-content";
+import { summitHighlights, nextSummit } from "@/data/site-content";
 
 export const metadata: Metadata = {
-  title: `Summit Opportunities | ${siteConfig.metaTitle}`,
+  title: `Summit Opportunities | ${nextSummit.metaTitle}`,
   description:
-    "Explore the seven interconnected opportunity areas at the MEEI China–Africa Business & Investment Summit 2026 in Guangzhou.",
+    "Explore the seven interconnected opportunity areas at the MEEI China–Africa Business & Investment Summit 2027 in Guangzhou.",
 };
 
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -64,11 +64,11 @@ export default function OpportunitiesPage() {
             Back to Summit
           </Link>
           <Link
-            href="/register"
+            href="/waitlist"
             className="inline-flex items-center rounded-full font-body text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
             style={{ background: "#2ca640", padding: "9px 20px" }}
           >
-            Register Now
+            Join Waitlist
           </Link>
         </div>
       </header>
@@ -120,20 +120,20 @@ export default function OpportunitiesPage() {
                   className="mb-3 font-body font-bold leading-snug"
                   style={{ fontSize: "clamp(1.5rem, 2.2vw, 2.1rem)", color: "#F4F4EF" }}
                 >
-                  Ready to Attend MEEI 2026?
+                  Ready to Attend MEEI 2027?
                 </h2>
                 <p className="font-body text-sm leading-relaxed" style={{ color: "#9DA89F" }}>
-                  Register your interest today and secure your place at the
-                  China–Africa Business &amp; Investment Summit, 17–21 October
-                  2026, Guangzhou.
+                  Join the waitlist for the China–Africa Business &amp;
+                  Investment Summit, 14–18 April 2027, Guangzhou, and be the
+                  first to know when registration opens.
                 </p>
               </div>
               <Link
-                href="/register"
+                href="/waitlist"
                 className="group inline-flex shrink-0 items-center gap-2 rounded-xl font-body text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
                 style={{ background: "#2ca640", padding: "14px 32px" }}
               >
-                Book Your Place
+                Join the Waitlist
                 <ArrowRight
                   className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
                   aria-hidden="true"
@@ -208,11 +208,11 @@ function Intro({ sticky }: { sticky: boolean }) {
 
       {/* Register CTA */}
       <Link
-        href="/register"
+        href="/waitlist"
         className="group mb-3 flex w-full items-center justify-center gap-2 rounded-xl font-body text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
         style={{ background: "#2ca640", padding: "13px 24px" }}
       >
-        Apply to Attend
+        Join the Waitlist
         <ArrowRight
           className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
           aria-hidden="true"
@@ -234,11 +234,11 @@ function Intro({ sticky }: { sticky: boolean }) {
             className="font-body text-[11px] font-semibold uppercase tracking-[0.18em]"
             style={{ color: "#47c34f" }}
           >
-            17–21 October 2026
+            {nextSummit.dates}
           </p>
         </div>
         <p className="mb-1 font-body text-sm font-semibold" style={{ color: "#E8EDE9" }}>
-          Vienna International Hotel
+          {nextSummit.venue}
         </p>
         <div className="flex items-center gap-1.5">
           <MapPin className="h-3 w-3 shrink-0" style={{ color: "#9DA89F" }} aria-hidden="true" />

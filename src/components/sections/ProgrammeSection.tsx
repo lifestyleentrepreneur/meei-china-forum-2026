@@ -1,21 +1,16 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { MapPin, ExternalLink, ArrowRight } from "lucide-react";
-import { agendaDays, siteConfig } from "@/data/site-content";
+import { MapPin, ArrowRight, CalendarDays, Check } from "lucide-react";
+import { nextSummit } from "@/data/site-content";
 
-const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-  "Vienna International Hotel, No. 603, Sanyuanli Avenue, Yuexiu, Guangzhou, Guangdong, China"
-)}`;
+// The 2027 programme and venue are not confirmed yet: show the dates and what
+// the last edition included until they are announced.
+const lastEditionHighlights = [
+  "A full day at the Canton Fair",
+  "The flagship Summit day: keynote, high-level panels and curated B2B matchmaking",
+  "A guided Guangzhou city tour and factory visit",
+];
 
 export default function ProgrammeSection() {
-  const [activeDay, setActiveDay] = useState(
-    (agendaDays.find((d) => d.flagship) ?? agendaDays[0]).id
-  );
-  const day = agendaDays.find((d) => d.id === activeDay) ?? agendaDays[0];
-
   return (
     <section
       id="agenda"
@@ -50,9 +45,8 @@ export default function ProgrammeSection() {
               <p
                 className="max-w-[640px] font-body leading-[1.55] text-[#9DA89F] lg:text-[17px]"
               >
-                Five days in Guangzhou: a full day at the Canton Fair, the
-                flagship Summit with keynote, high-level panels and curated B2B
-                matchmaking, and a guided city and factory visit.
+                The programme for the April 2027 summit will be announced soon.
+                Join the waitlist to receive it as soon as it is confirmed.
               </p>
             </div>
 
@@ -65,165 +59,77 @@ export default function ProgrammeSection() {
                 boxShadow: "0 18px 45px rgba(0,0,0,0.18)",
               }}
             >
-              {/* Day tab row */}
+              {/* Dates + status */}
               <div
-                className="grid grid-cols-5 border-b"
+                className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b px-6 py-5 lg:px-8"
                 style={{ borderColor: "rgba(255,255,255,0.08)" }}
-                role="tablist"
-                aria-label="Summit days"
               >
-                {agendaDays.map((d) => (
-                  <button
-                    key={d.id}
-                    role="tab"
-                    id={`tab-${d.id}`}
-                    aria-selected={d.id === activeDay}
-                    aria-controls={`panel-${d.id}`}
-                    onClick={() => setActiveDay(d.id)}
-                    className="relative px-1 py-3 text-center font-body transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--green-bright)] focus-visible:rounded sm:py-4"
-                    style={{
-                      color:
-                        d.id === activeDay ? "var(--green-bright)" : "#9DA89F",
-                    }}
-                  >
-                    {d.id === activeDay && (
-                      <span
-                        className="absolute inset-x-0 bottom-0 h-[2px] bg-[var(--green-bright)]"
-                        aria-hidden="true"
-                      />
-                    )}
-                    <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] opacity-80 sm:text-[11px]">
-                      {d.label}
-                    </span>
-                    <span className="block text-xs font-medium sm:text-sm">
-                      {d.date}
-                    </span>
-                  </button>
-                ))}
+                <span className="flex items-center gap-2 font-body text-[15px] font-bold text-[#F4F4EF]">
+                  <CalendarDays className="h-4 w-4 text-[var(--green-bright)]" aria-hidden="true" />
+                  {nextSummit.dates}
+                </span>
+                <span className="rounded-full bg-[var(--gold)] px-2 py-0.5 font-body text-[9px] font-bold uppercase tracking-[0.14em] text-[#1C2E20]">
+                  Programme to be announced
+                </span>
               </div>
 
-              {/* Session list */}
-              <div
-                id={`panel-${day.id}`}
-                role="tabpanel"
-                aria-labelledby={`tab-${day.id}`}
-                className="px-6 py-2 lg:px-8"
-              >
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-5 pb-1">
-                  <span className="font-body text-[15px] font-bold text-[#F4F4EF]">
-                    {day.theme}
-                  </span>
-                  {day.flagship && (
-                    <span className="rounded-full bg-[var(--gold)] px-2 py-0.5 font-body text-[9px] font-bold uppercase tracking-[0.14em] text-[#1C2E20]">
-                      Flagship
-                    </span>
-                  )}
-                  <span className="font-body text-[13px] text-[#9DA89F]">
-                    {day.weekday} · {day.date} 2026
-                  </span>
-                </div>
-                {day.sessions.map((session, i) => (
-                  <div key={`${day.id}-${i}`}>
-                    <div
-                      className="grid items-start py-5"
-                      style={{
-                        gridTemplateColumns: "28px 72px minmax(0,1fr)",
-                        gap: "0 16px",
-                      }}
-                    >
-                      {/* Timeline node */}
-                      <div
-                        className="flex justify-center pt-[3px]"
-                        aria-hidden="true"
-                      >
-                        <div
-                          className="h-3 w-3 rounded-full"
-                          style={
-                            i === 0
-                              ? {
-                                  background: "var(--green-bright)",
-                                  boxShadow:
-                                    "0 0 10px rgba(71,195,79,0.35)",
-                                }
-                              : {
-                                  background: "transparent",
-                                  border: "2px solid var(--green-bright)",
-                                }
-                          }
-                        />
-                      </div>
-
-                      {/* Time */}
-                      <span
-                        className="font-body text-sm font-semibold leading-none tracking-[0.02em]"
-                        style={{ color: "var(--green-bright)" }}
-                      >
-                        {session.time}
-                      </span>
-
-                      {/* Event content */}
-                      <div>
-                        <p className="font-body text-[15px] font-semibold leading-snug text-[#F4F4EF]">
-                          {session.title}
-                          {session.tag && (
-                            <span className="ml-2 inline-block rounded-full border border-[var(--green-bright)] px-2 py-px align-middle text-[9px] font-bold uppercase tracking-[0.14em] text-[var(--green-bright)]">
-                              {session.tag}
-                            </span>
-                          )}
-                        </p>
-                        {session.description && (
-                          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[#9DA89F]">
-                            {session.description}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Row separator, offset past node + gap + time + gap */}
-                    {i < day.sessions.length - 1 && (
-                      <div
-                        className="ml-[132px]"
-                        style={{
-                          height: "1px",
-                          background: "rgba(255,255,255,0.08)",
-                        }}
+              {/* Last edition */}
+              <div className="px-6 py-6 lg:px-8">
+                <p className="mb-4 font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9DA89F]">
+                  The October 2026 edition included
+                </p>
+                <ul className="flex flex-col gap-3" role="list">
+                  {lastEditionHighlights.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <Check
+                        className="mt-0.5 h-4 w-4 shrink-0 text-[var(--green-bright)]"
                         aria-hidden="true"
                       />
-                    )}
-                  </div>
-                ))}
+                      <span className="font-body text-[15px] leading-snug text-[#F4F4EF]">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            {/* Full Programme button */}
-            <Link
-              href="/programme"
-              className="group mt-6 inline-flex items-center gap-2.5 rounded-full border px-6 py-3 font-body text-sm font-semibold text-[#F4F4EF] transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green-bright)]"
-              style={{ borderColor: "rgba(53,194,74,0.32)" }}
-            >
-              Full Programme
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                aria-hidden="true"
-              />
-            </Link>
+            {/* Waitlist + last programme */}
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link
+                href="/waitlist"
+                className="group inline-flex items-center gap-2.5 rounded-full border px-6 py-3 font-body text-sm font-semibold text-[#F4F4EF] transition-all duration-200 hover:bg-white/5 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--green-bright)]"
+                style={{ borderColor: "rgba(53,194,74,0.32)" }}
+              >
+                Join the Waitlist
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </Link>
+              <Link
+                href="/programme"
+                className="font-body text-sm text-[#9DA89F] transition-colors hover:text-[#F4F4EF]"
+              >
+                See the 2026 programme
+              </Link>
+            </div>
           </div>
 
-          {/* ── RIGHT: Summit overview panel ── */}
+          {/* ── RIGHT: venue panel ── */}
           <div
-            className="rounded-2xl p-8 lg:col-span-2 lg:p-10"
+            className="rounded-2xl p-8 lg:col-span-2 lg:self-start lg:p-10"
             style={{
               background: "#F7F3EC",
               border: "1px solid rgba(28,46,32,0.10)",
             }}
           >
-            {/* Venue */}
             <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--green-primary)]">
               Venue
             </p>
 
             <p className="mb-1 font-body text-sm font-bold" style={{ color: "#1C2E20" }}>
-              {siteConfig.venue}
+              To be announced
             </p>
             <p
               className="mb-4 flex items-start gap-1.5 text-[11px] leading-relaxed"
@@ -234,42 +140,12 @@ export default function ProgrammeSection() {
                 style={{ color: "var(--green-primary)" }}
                 aria-hidden="true"
               />
-              {siteConfig.venueAddress}
+              {nextSummit.city}
             </p>
-
-            {/* Venue images: outside + inside */}
-            <div className="mb-3 flex flex-col gap-3">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-                <Image
-                  src="/images/venue-outside.png"
-                  alt={`${siteConfig.venue}, exterior`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-                <Image
-                  src="/images/venue-inside.png"
-                  alt={`${siteConfig.venue}, interior`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            <a
-              href={DIRECTIONS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--green-primary)] focus-visible:rounded"
-              style={{ color: "var(--green-primary)" }}
-              aria-label="View Vienna International Hotel on Google Maps (opens in new tab)"
-            >
-              View on Google Maps
-              <ExternalLink className="h-3 w-3" aria-hidden="true" />
-            </a>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5E4F" }}>
+              The venue will be confirmed soon. Everyone on the waitlist will
+              hear first.
+            </p>
           </div>
         </div>
       </div>

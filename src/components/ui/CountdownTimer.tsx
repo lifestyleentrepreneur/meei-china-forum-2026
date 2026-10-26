@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { nextSummit } from "@/data/site-content";
 
-const TARGET = new Date("2026-10-17T09:00:00+08:00"); // Opening, Guangzhou time
+const TARGET = new Date(`${nextSummit.dateStart}T09:00:00+08:00`); // Next edition's opening, Guangzhou time
 
 function getTimeLeft() {
   const diff = TARGET.getTime() - Date.now();
@@ -22,7 +23,7 @@ function Bubble({
   label,
   variant,
 }: {
-  value: number;
+  value: number | null;
   label: string;
   variant: Variant;
 }) {
@@ -46,7 +47,7 @@ function Bubble({
             textShadow,
           }}
         >
-          {String(value).padStart(2, "0")}
+          {value === null ? "--" : String(value).padStart(2, "0")}
         </span>
       </div>
       <span
@@ -67,19 +68,23 @@ export default function CountdownTimer({
 }: {
   variant?: Variant;
 }) {
-  const [time, setTime] = useState(getTimeLeft);
+  // Computed only in the browser: a server-rendered time never matches the
+  // client's, which breaks hydration.
+  const [time, setTime] = useState<ReturnType<typeof getTimeLeft> | null>(null);
 
   useEffect(() => {
-    const id = setInterval(() => setTime(getTimeLeft()), 1000);
+    const tick = () => setTime(getTimeLeft());
+    tick();
+    const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
 
   return (
     <div className="flex items-end gap-3 sm:gap-4" aria-label="Countdown to summit opening">
-      <Bubble value={time.days}    label="Days"  variant={variant} />
-      <Bubble value={time.hours}   label="Hours" variant={variant} />
-      <Bubble value={time.minutes} label="Min"   variant={variant} />
-      <Bubble value={time.seconds} label="Sec"   variant={variant} />
+      <Bubble value={time?.days ?? null}    label="Days"  variant={variant} />
+      <Bubble value={time?.hours ?? null}   label="Hours" variant={variant} />
+      <Bubble value={time?.minutes ?? null} label="Min"   variant={variant} />
+      <Bubble value={time?.seconds ?? null} label="Sec"   variant={variant} />
     </div>
   );
 }

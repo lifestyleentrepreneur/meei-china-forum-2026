@@ -6,7 +6,7 @@ import { ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { siteConfig, contactDetails } from "@/data/site-content";
+import { siteConfig, contactDetails, nextSummit } from "@/data/site-content";
 
 /* ── Data ─────────────────────────────────────────────────── */
 
@@ -194,7 +194,7 @@ export default function Footer() {
               ))}
               <li className="flex items-center gap-2">
                 <MapPin className="h-3.5 w-3.5 shrink-0 text-[#2ca640]" aria-hidden="true" />
-                <span className="text-xs text-[#9DA89F]">{contactDetails.venueShort}</span>
+                <span className="text-xs text-[#9DA89F]">{nextSummit.city}</span>
               </li>
             </ul>
           </div>
@@ -216,12 +216,12 @@ export default function Footer() {
               style={{ background: "#0B1710", border: "1px solid rgba(53,194,74,0.14)" }}
             >
               <p className="mb-0.5 font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-[#47c34f]">
-                {siteConfig.dates}
+                {nextSummit.dates}
               </p>
               <p className="font-heading text-sm font-semibold text-[#F4F4EF]">
-                {siteConfig.venue}
+                {nextSummit.venue}
               </p>
-              <p className="mt-0.5 text-xs text-[#9DA89F]">{siteConfig.venueCity}</p>
+              <p className="mt-0.5 text-xs text-[#9DA89F]">{nextSummit.city}</p>
             </div>
           </div>
         </div>

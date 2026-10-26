@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { label: "About", href: "#about" },
   { label: "Speakers", href: "#speakers" },
   { label: "Agenda", href: "#agenda" },
-  { label: "Tickets", href: "/register" },
+  { label: "Waitlist", href: "/waitlist" },
   { label: "Country Reps", href: "/country-rep", accent: true },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -112,14 +112,14 @@ export default function Header() {
             </ul>
           </nav>
 
-          {/* ── Right: Register button (desktop) + Hamburger (mobile) ── */}
+          {/* ── Right: Waitlist button (desktop) + Hamburger (mobile) ── */}
           <div className="ml-auto flex items-center gap-3">
-            {/* Register Now, desktop */}
+            {/* Join Waitlist, desktop */}
             <Link
-              href="/register"
+              href="/waitlist"
               className="hidden items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#063F32] shadow-md transition-all duration-200 hover:bg-white/90 hover:shadow-lg active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 md:inline-flex lg:gap-2 lg:px-5 lg:py-2 lg:text-sm"
             >
-              Register Now
+              Join Waitlist
               <ArrowRight className="h-3 w-3 lg:h-3.5 lg:w-3.5" aria-hidden="true" />
             </Link>
 
@@ -217,11 +217,11 @@ export default function Header() {
 
           <div className="border-t border-white/10 px-4 pb-8 pt-4">
             <Link
-              href="/register"
+              href="/waitlist"
               onClick={closeMobile}
               className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#063F32] shadow-md transition-all active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400"
             >
-              Register Now
+              Join the Waitlist
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>

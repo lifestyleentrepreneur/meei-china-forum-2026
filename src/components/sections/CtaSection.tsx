@@ -33,7 +33,7 @@ export default function CtaSection() {
 
       <div className="relative z-10 mx-auto max-w-8xl px-4 text-center sm:px-6 lg:px-8 xl:px-12">
         <p className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.2em] text-[var(--green-bright)]">
-          Guangzhou · October 2026
+          Guangzhou · April 2027
         </p>
         <h2
           id="cta-heading"
@@ -46,8 +46,8 @@ export default function CtaSection() {
           Join the conversation around sustainable Africa–China trade, investment, manufacturing, and industrial cooperation.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <PrimaryButton href="/register" className="min-w-[200px]">
-            Claim Your Place
+          <PrimaryButton href="/waitlist" className="min-w-[200px]">
+            Join the Waitlist
           </PrimaryButton>
           <SecondaryButton href="/#contact">
             Contact the Organizers

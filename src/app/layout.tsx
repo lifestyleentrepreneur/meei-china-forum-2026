@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Oswald, Inter, Lora } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/data/site-content";
+import { siteConfig, nextSummit } from "@/data/site-content";
 import MetaPixel from "@/components/analytics/MetaPixel";
 
 const oswald = Oswald({
@@ -31,15 +31,15 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: siteConfig.metaTitle,
-  description: siteConfig.metaDescription,
+  title: nextSummit.metaTitle,
+  description: nextSummit.metaDescription,
   metadataBase: new URL(siteConfig.canonicalUrl),
   alternates: {
     canonical: siteConfig.canonicalUrl,
   },
   openGraph: {
-    title: siteConfig.metaTitle,
-    description: siteConfig.metaDescription,
+    title: nextSummit.metaTitle,
+    description: nextSummit.metaDescription,
     url: siteConfig.canonicalUrl,
     siteName: siteConfig.siteName,
     type: "website",
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.metaTitle,
-    description: siteConfig.metaDescription,
+    title: nextSummit.metaTitle,
+    description: nextSummit.metaDescription,
   },
   icons: {
     icon: "/brand/logo.svg",
@@ -69,18 +69,18 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Event",
-              name: siteConfig.eventName,
-              startDate: siteConfig.dateStart,
-              endDate: siteConfig.dateEnd,
+              name: nextSummit.eventName,
+              startDate: nextSummit.dateStart,
+              endDate: nextSummit.dateEnd,
               eventStatus: "https://schema.org/EventScheduled",
               eventAttendanceMode:
                 "https://schema.org/OfflineEventAttendanceMode",
               location: {
                 "@type": "Place",
-                name: siteConfig.venue,
+                // Venue not announced yet.
+                name: nextSummit.city,
                 address: {
                   "@type": "PostalAddress",
-                  streetAddress: "No. 603, Sanyuanli Avenue",
                   addressLocality: "Guangzhou",
                   addressRegion: "Guangdong",
                   addressCountry: "CN",

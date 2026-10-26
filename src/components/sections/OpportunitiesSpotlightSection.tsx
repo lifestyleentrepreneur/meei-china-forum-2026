@@ -126,13 +126,13 @@ export default function OpportunitiesSpotlightSection() {
             {/* ── Single CTA ── */}
             <div className="mt-10 flex justify-center lg:mt-14">
               <Link
-                href="/register"
+                href="/waitlist"
                 className="group inline-flex items-center gap-2.5 rounded-full px-9 py-4 font-body text-base font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2ca640]"
                 style={{
                   background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)",
                 }}
               >
-                Join the Summit
+                Join the Waitlist
                 <ArrowRight
                   className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
                   aria-hidden="true"

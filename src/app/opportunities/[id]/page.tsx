@@ -48,11 +48,11 @@ export default async function OpportunityDetailPage({ params }: Props) {
             All Opportunities
           </Link>
           <Link
-            href="/register"
+            href="/waitlist"
             className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400"
             style={{ background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)" }}
           >
-            Register Now
+            Join Waitlist
           </Link>
         </div>
       </header>
@@ -241,20 +241,20 @@ export default async function OpportunityDetailPage({ params }: Props) {
                     }}
                   >
                     <p className="mb-2 font-body text-[10px] font-semibold uppercase tracking-[0.22em] text-[#47c34f]">
-                      17–21 October 2026
+                      14–18 April 2027
                     </p>
                     <h3 className="mb-2 font-heading text-lg font-bold text-[#F4F4EF]">
-                      Attend MEEI 2026
+                      Attend MEEI 2027
                     </h3>
                     <p className="mb-6 font-body text-sm leading-relaxed text-[#9DA89F]">
-                      Vienna International Hotel, Guangzhou, China
+                      Guangzhou, China · Venue to be announced
                     </p>
                     <Link
-                      href="/register"
+                      href="/waitlist"
                       className="flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-400"
                       style={{ background: "linear-gradient(135deg, #078442 0%, #00A85A 100%)" }}
                     >
-                      Claim Your Place
+                      Join the Waitlist
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                   </div>
