@@ -338,7 +338,7 @@ export default function CountryRepForm() {
                   aria-required="true"
                   aria-invalid={!!(errors.whatsapp && touched.whatsapp)}
                   className={inputClass("whatsapp")}
-                  placeholder="+234 806 361 8106"
+                  placeholder="+1 234 567 8900"
                 />
                 {errors.whatsapp && touched.whatsapp && (
                   <p className={errorClass} role="alert">

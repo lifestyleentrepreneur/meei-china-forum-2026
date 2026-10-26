@@ -467,7 +467,7 @@ export const faqs: FAQ[] = [
     id: "contact",
     question: "How can I contact the organizers?",
     answer:
-      "You can reach the organizing team by email at info@meeiprogram.org, by phone at +86 130 2203 1801, +234 806 361 8106, or +90 531 965 7443, or through the contact section on this website.",
+      "You can reach the organizing team by email at info@meeiprogram.org, by phone at +86 130 2203 1801 or +90 531 965 7443, or through the contact section on this website.",
   },
 ];
 
@@ -475,11 +475,6 @@ export const contactDetails: ContactDetails = {
   email: "info@meeiprogram.org",
   phones: [
     { label: "China", number: "+8613022031801", display: "+86 130 2203 1801" },
-    {
-      label: "Nigeria",
-      number: "+2348063618106",
-      display: "+234 806 361 8106",
-    },
     {
       label: "Turkey",
       number: "+905319657443",
@@ -608,7 +603,6 @@ export const paymentConfig = {
   stripeUrl: "https://buy.stripe.com/28EdR8fFD6mdcbm241afS0s",
   // WhatsApp contacts (used for "send proof" and "questions"). Number = digits only.
   whatsapp: [
-    { label: "Nigeria (WhatsApp Business)", number: "2348063618106", display: "+234 806 361 8106" },
     { label: "Turkey", number: "905319657443", display: "+90 531 965 7443" },
   ],
   // Bank accounts. Pay the amount shown for the account you use.
