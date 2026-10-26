@@ -10,7 +10,8 @@ import { countryLabels } from "@/data/countries-i18n";
 
 // "standard": paid delegate pass (visa question + payment step).
 // "in-china": selected participants already in China — no visa, no payment.
-export type RegistrationVariant = "standard" | "in-china";
+// "waitlist": next-edition waitlist — visa question kept, no payment.
+export type RegistrationVariant = "standard" | "in-china" | "waitlist";
 
 interface FormData {
   firstName: string;
@@ -73,6 +74,7 @@ export default function RegistrationForm({
   locale?: Locale;
 }) {
   const inChina = variant === "in-china";
+  const waitlist = variant === "waitlist";
   const t = registrationCopy[locale].form;
   // [stored English value, displayed label]
   const countryOptions = locale === "en" ? countries.map((c) => [c, c]) : countryLabels[locale];
@@ -152,9 +154,13 @@ export default function RegistrationForm({
   const errorClass = "mt-1 flex items-center gap-1 text-xs text-[var(--red-primary)]";
 
   if (status === "success") {
-    if (inChina) {
+    if (inChina || waitlist) {
       return (
-        <RegistrationConfirmed name={`${form.firstName} ${form.lastName}`.trim()} locale={locale} />
+        <RegistrationConfirmed
+          name={`${form.firstName} ${form.lastName}`.trim()}
+          locale={locale}
+          waitlist={waitlist}
+        />
       );
     }
     return (
@@ -586,7 +592,9 @@ export default function RegistrationForm({
                 ? t.submitting
                 : inChina
                   ? t.submitInChina
-                  : t.submit}
+                  : waitlist
+                    ? t.submitWaitlist
+                    : t.submit}
             </button>
             <p id="form-required-note" className="mt-2 text-[11px] text-[var(--text-secondary)]">
               {t.requiredBefore} <span className="text-[var(--red-primary)]">*</span> {t.requiredAfter}

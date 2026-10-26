@@ -2,15 +2,19 @@ import { CheckCircle2, MessageCircle } from "lucide-react";
 import { paymentConfig } from "@/data/site-content";
 import { registrationCopy, type Locale } from "@/components/registration/registration-copy";
 
-// Final step for the no-payment (already in China) registration flow.
+// Final step for the no-payment flows: already-in-China registration, and
+// the next-edition waitlist.
 export default function RegistrationConfirmed({
   name,
   locale = "en",
+  waitlist = false,
 }: {
   name: string;
   locale?: Locale;
+  waitlist?: boolean;
 }) {
-  const t = registrationCopy[locale].confirmed;
+  const copy = registrationCopy[locale];
+  const t = waitlist ? copy.waitlistConfirmed : copy.confirmed;
   const firstName = name.split(" ")[0];
   const waMessage = t.whatsappMessage(name);
 

@@ -1,7 +1,7 @@
-import { siteConfig } from "@/data/site-content";
+import { siteConfig, nextSummit } from "@/data/site-content";
 
-// UI copy for the registration form, its confirmation screen, and the
-// in-China registration page. Submitted values (countries, industries,
+// UI copy for the registration form, its confirmation screens (registration
+// and waitlist), and the in-China registration page. Submitted values (countries, industries,
 // B2B answer) stay in English so Airtable data is consistent across languages.
 export type Locale = "en" | "fr" | "zh";
 
@@ -61,6 +61,7 @@ const en = {
       "Your information will be used solely for summit-related communication and will not be shared with third parties without your consent.",
     submit: "Submit Registration Interest",
     submitInChina: "Submit Registration",
+    submitWaitlist: "Join the Waitlist",
     submitting: "Submitting…",
     requiredBefore: "Fields marked",
     requiredAfter: "are required.",
@@ -102,6 +103,15 @@ const en = {
     whatsappPrompt: "Questions? Reach us on WhatsApp:",
     whatsappMessage: (name: string) =>
       `Hello MEEI Program, I'm ${name || "a delegate"}. I've just registered for the China–Africa Business & Investment Summit (already in China).`,
+    home: "← Return to homepage",
+  },
+  waitlistConfirmed: {
+    title: "You're on the Waitlist",
+    body: (firstName: string) =>
+      `Thank you${firstName ? `, ${firstName}` : ""}. You're on the waitlist for the ${nextSummit.eventName}, ${nextSummit.dates}. There is nothing to pay now — we'll email you as soon as delegate registration opens.`,
+    whatsappPrompt: "Questions? Reach us on WhatsApp:",
+    whatsappMessage: (name: string) =>
+      `Hello MEEI Program, I'm ${name || "a delegate"}. I've just joined the waitlist for the China–Africa Business & Investment Summit (April 2027).`,
     home: "← Return to homepage",
   },
   page: {
@@ -180,6 +190,7 @@ const fr: RegistrationCopy = {
       "Vos informations seront utilisées uniquement pour les communications liées au sommet et ne seront pas partagées avec des tiers sans votre consentement.",
     submit: "Envoyer ma demande d'inscription",
     submitInChina: "Envoyer mon inscription",
+    submitWaitlist: "Rejoindre la liste d'attente",
     submitting: "Envoi en cours…",
     requiredBefore: "Les champs marqués d'un",
     requiredAfter: "sont obligatoires.",
@@ -221,6 +232,15 @@ const fr: RegistrationCopy = {
     whatsappPrompt: "Des questions ? Contactez-nous sur WhatsApp :",
     whatsappMessage: (name: string) =>
       `Bonjour MEEI Program, je suis ${name || "un(e) délégué(e)"}. Je viens de m'inscrire au Sommet d'affaires et d'investissement Chine–Afrique (déjà en Chine).`,
+    home: "← Retour à l'accueil",
+  },
+  waitlistConfirmed: {
+    title: "Vous êtes sur la liste d'attente",
+    body: (firstName: string) =>
+      `Merci${firstName ? `, ${firstName}` : ""}. Vous êtes inscrit(e) sur la liste d'attente du Sommet d'affaires et d'investissement Chine–Afrique 2027, du 14 au 18 avril 2027. Vous n'avez rien à payer pour le moment — nous vous écrirons par e-mail dès l'ouverture des inscriptions.`,
+    whatsappPrompt: "Des questions ? Contactez-nous sur WhatsApp :",
+    whatsappMessage: (name: string) =>
+      `Bonjour MEEI Program, je suis ${name || "un(e) délégué(e)"}. Je viens de rejoindre la liste d'attente du Sommet d'affaires et d'investissement Chine–Afrique (avril 2027).`,
     home: "← Retour à l'accueil",
   },
   page: {
@@ -294,6 +314,7 @@ const zh: RegistrationCopy = {
     consentNote: "您的信息仅用于峰会相关沟通，未经您同意不会与任何第三方共享。",
     submit: "提交报名意向",
     submitInChina: "提交报名",
+    submitWaitlist: "加入候补名单",
     submitting: "提交中…",
     requiredBefore: "标有",
     requiredAfter: "的为必填项。",
@@ -335,6 +356,15 @@ const zh: RegistrationCopy = {
     whatsappPrompt: "有疑问？请通过 WhatsApp 联系我们：",
     whatsappMessage: (name: string) =>
       `您好，MEEI Program，我是${name || "一名参会代表"}。我刚刚报名参加中非商业与投资峰会（已在中国）。`,
+    home: "← 返回首页",
+  },
+  waitlistConfirmed: {
+    title: "您已加入候补名单",
+    body: () =>
+      "感谢您的关注！您已加入2027中非商业与投资峰会（2027年4月14日至18日）的候补名单。现在无需付款，报名通道开放后我们将第一时间通过电子邮件通知您。",
+    whatsappPrompt: "有疑问？请通过 WhatsApp 联系我们：",
+    whatsappMessage: (name: string) =>
+      `您好，MEEI Program，我是${name || "一名参会代表"}。我刚刚加入了中非商业与投资峰会（2027年4月）的候补名单。`,
     home: "← 返回首页",
   },
   page: {

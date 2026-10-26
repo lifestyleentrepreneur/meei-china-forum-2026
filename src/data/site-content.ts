@@ -43,6 +43,16 @@ export const siteConfig = {
   themeColor: "#050806",
 };
 
+// Next edition, collected through the /waitlist page until registration opens.
+export const nextSummit = {
+  eventName: "China–Africa Business & Investment Summit 2027",
+  dates: "14–18 April 2027",
+  dateStart: "2027-04-14",
+  dateEnd: "2027-04-18",
+  city: "Guangzhou, China",
+  venue: "Venue to be announced",
+};
+
 export const navigationItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/#about" },

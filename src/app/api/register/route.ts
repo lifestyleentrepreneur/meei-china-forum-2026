@@ -24,7 +24,7 @@ type RegistrationBody = {
 export async function POST(req: Request) {
   const token = process.env.AIRTABLE_TOKEN;
   const baseId = process.env.AIRTABLE_BASE_ID;
-  const table = process.env.AIRTABLE_REGISTRATIONS_TABLE || "Registrations";
+  const registrationsTable = process.env.AIRTABLE_REGISTRATIONS_TABLE || "Registrations";
 
   if (!token || !baseId) {
     // Not configured yet — surface a clear, non-technical message.
@@ -52,6 +52,12 @@ export async function POST(req: Request) {
   const fullName = `${data.firstName.trim()} ${data.lastName.trim()}`;
   // Selected participants already in China: no visa, no payment.
   const inChina = data.registrationType === "in-china";
+  // Next-edition waitlist (April 2027): its own table, which has no pass or
+  // payment columns.
+  const waitlist = data.registrationType === "waitlist";
+  const table = waitlist
+    ? process.env.AIRTABLE_WAITLIST_TABLE || "Waitlist-AfricaChinaSummit-2027"
+    : registrationsTable;
 
   // Map form fields -> Airtable column names (must match the base exactly).
   const fields: Record<string, unknown> = {
@@ -65,14 +71,18 @@ export async function POST(req: Request) {
     Company: data.company ?? "",
     "Job Title": data.jobTitle ?? "",
     Industry: data.industry ?? "",
-    "Preferred Pass": inChina ? "In-China Delegate (No Payment)" : "Delegate Pass",
     "B2B Interest": data.b2bInterest ?? "",
     "Needs Visa Support": inChina ? "No (already in China)" : data.visaInfo ?? "",
     "Dietary Requirements": data.dietary ?? "",
     Notes: data.notes ?? "",
     Consent: !!data.consent,
-    // Left blank for in-China delegates so they stay out of payment follow-up.
-    ...(inChina ? {} : { "Payment Status": "Pending" }),
+    ...(waitlist
+      ? {}
+      : {
+          "Preferred Pass": inChina ? "In-China Delegate (No Payment)" : "Delegate Pass",
+          // Left blank for in-China delegates so they stay out of payment follow-up.
+          ...(inChina ? {} : { "Payment Status": "Pending" }),
+        }),
   };
 
   try {
